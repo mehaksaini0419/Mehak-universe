@@ -50,7 +50,11 @@ export default function Hero() {
 
       <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.75 }}
         className="mt-9 flex flex-wrap gap-3 justify-center">
-        <a href="/Mehak_Saini_Resume.pdf" download
+        <a href="/Mehak%20Saini_Resume.pdf" target="_blank" rel="noopener noreferrer" download
+          className="flex items-center gap-2 px-6 py-3 rounded-full font-medium text-slate-900 transition hover:scale-105"
+          style={{ background: "linear-gradient(90deg,#22d3ee,#34d399)" }}>
+          <Download size={18} /> Resume
+        </a>
           className="flex items-center gap-2 px-6 py-3 rounded-full font-medium text-slate-900 transition hover:scale-105"
           style={{ background: "linear-gradient(90deg,#22d3ee,#34d399)" }}>
           <Download size={18} /> Resume

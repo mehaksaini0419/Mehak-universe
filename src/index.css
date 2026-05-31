@@ -1,0 +1,96 @@
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=Outfit:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --ink: #04020e;
+  --ink2: #0b1030;
+  --cyan: #22d3ee;
+  --violet: #a855f7;
+  --gold: #f5c451;
+  --emerald: #34d399;
+  --pink: #f472b6;
+  --orange: #fb923c;
+  --blue: #60a5fa;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--ink);
+  color: #e7ecff;
+  font-family: 'Outfit', system-ui, sans-serif;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+.font-display { font-family: 'Sora', sans-serif; }
+.font-mono { font-family: 'JetBrains Mono', monospace; }
+
+/* aurora behind everything */
+.aurora {
+  position: fixed; inset: 0; z-index: -3;
+  background:
+    radial-gradient(1000px 700px at 50% 8%, rgba(168,85,247,.28), transparent 55%),
+    radial-gradient(800px 600px at 85% 30%, rgba(34,211,238,.20), transparent 55%),
+    radial-gradient(900px 700px at 15% 75%, rgba(52,211,153,.18), transparent 60%),
+    radial-gradient(700px 500px at 80% 95%, rgba(244,114,182,.15), transparent 55%),
+    linear-gradient(180deg, var(--ink), var(--ink2) 60%, #0b1030);
+  animation: auroraShift 20s ease-in-out infinite alternate;
+}
+@keyframes auroraShift {
+  0% { filter: hue-rotate(0deg) saturate(1); }
+  100% { filter: hue-rotate(22deg) saturate(1.15); }
+}
+
+/* starfield canvas — shines behind whole portfolio */
+#starfield { position: fixed; inset: 0; z-index: -2; }
+
+.glass {
+  background: rgba(15, 21, 54, 0.5);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(140, 170, 255, 0.16);
+  border-radius: 20px;
+}
+.glass-strong {
+  background: rgba(11, 16, 48, 0.82);
+  backdrop-filter: blur(22px);
+  border: 1px solid rgba(140, 170, 255, 0.2);
+  border-radius: 22px;
+}
+
+.glow-text { text-shadow: 0 0 22px rgba(34,211,238,.45), 0 0 50px rgba(168,85,247,.3); }
+.shimmer {
+  background: linear-gradient(90deg, var(--cyan), var(--violet), var(--gold), var(--emerald), var(--cyan));
+  background-size: 300% 100%;
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer 7s linear infinite;
+}
+@keyframes shimmer { to { background-position: 300% 0; } }
+
+@keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-14px); } }
+.float { animation: float 6s ease-in-out infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes spinSlow { to { transform: rotate(-360deg); } }
+
+.rainbow-bar {
+  height: 4px; border-radius: 99px;
+  background: linear-gradient(90deg, #f472b6, #fb923c, #f5c451, #34d399, #22d3ee, #a855f7);
+  background-size: 200% 100%;
+  animation: shimmer 6s linear infinite;
+}
+
+::-webkit-scrollbar { width: 10px; }
+::-webkit-scrollbar-track { background: var(--ink2); }
+::-webkit-scrollbar-thumb { background: linear-gradient(var(--cyan), var(--violet)); border-radius: 99px; }
+
+.recharts-default-tooltip {
+  background: rgba(11,16,48,.95) !important;
+  border: 1px solid rgba(140,170,255,.25) !important;
+  border-radius: 12px !important;
+}
+.no-scrollbar::-webkit-scrollbar { display: none; }
+@keyframes spinwheel { to { transform: rotate(360deg); } }

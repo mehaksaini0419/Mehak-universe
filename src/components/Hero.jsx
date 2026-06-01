@@ -55,10 +55,6 @@ export default function Hero() {
           style={{ background: "linear-gradient(90deg,#22d3ee,#34d399)" }}>
           <Download size={18} /> Resume
         </a>
-          className="flex items-center gap-2 px-6 py-3 rounded-full font-medium text-slate-900 transition hover:scale-105"
-          style={{ background: "linear-gradient(90deg,#22d3ee,#34d399)" }}>
-          <Download size={18} /> Resume
-        </a>
         <a href={profile.linkedin} target="_blank" rel="noreferrer"
           className="flex items-center gap-2 px-6 py-3 rounded-full font-medium glass hover:scale-105 transition">
           <Linkedin size={18} /> LinkedIn

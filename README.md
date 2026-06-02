@@ -52,4 +52,3 @@ Deploy on Vercel or Netlify (build: npm run build, output: dist).
   best in Chrome/Edge desktop. Browsers only allow it after a click — which is
   why it plays when you tap the planet.
 - Fully responsive (phone + desktop).
-"# Mehak-universe" 

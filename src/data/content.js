@@ -12,6 +12,7 @@ export const profile = {
   email: "mehaksaini0419@gmail.com",
   phone: "(419) 565-9221",
   linkedin: "https://www.linkedin.com/in/mehaksaini04",
+  github: "https://github.com/mehaksaini0419",
   location: "Newark, NY · Open to relocation (California Bay Area, LA, San Diego, Irvine)",
   workAuth: "F-1 STEM OPT — work-authorized in the U.S. through 2028 (E-Verify employers)",
   voiceIntro:
@@ -87,6 +88,18 @@ export const projects = [
     tagline: "Scheduling & bottleneck analysis", stack: ["Python", "Excel", "Six Sigma"],
     desc: "Demand-driven scheduling that cut operational inefficiency 15% and lifted conversion 12%; facility scheduling rebuild reduced conflicts 30%.",
     impact: ["-15% inefficiency", "-30% conflicts", "+25% staffing", "Root-cause"] },
+  { id: "retailiq-sql", type: "sql", title: "RetailIQ SQL — Wireless Retail Analytics Database",
+    tagline: "PostgreSQL database answering real business questions with advanced SQL",
+    stack: ["SQL", "PostgreSQL", "pgAdmin"],
+    desc: "A PostgreSQL database that models a multi-store wireless retailer and answers real business questions using advanced SQL. Designed a normalized 5-table schema and wrote 10 analytical queries using CTEs and window functions (RANK, ROW_NUMBER, LAG, NTILE, running totals). Analyzes sales performance, rep rankings, pace-to-goal, plan mix, and customer purchase patterns across 6 stores and 8 reps (~5,000 transactions). The SQL analysis confirmed the same accessory-sales drivers found by the Python ML model.",
+    impact: ["6 stores · 8 reps", "~5,000 transactions", "5-table schema", "CTEs + window fns"],
+    github: "https://github.com/mehaksaini0419/retailiq-sql-analytics" },
+  { id: "retailiq-ml", type: "ml", title: "RetailIQ — Wireless Store Performance & Revenue Intelligence Engine",
+    tagline: "Python analytics app with machine-learning predictions",
+    stack: ["Python", "pandas", "scikit-learn", "Streamlit", "Plotly"],
+    desc: "A Python analytics app that turns wireless retail sales data into manager-ready decisions, including machine-learning predictions. Trained a Random Forest model to predict accessory-attach likelihood per customer, quantified recoverable monthly revenue from coaching, and built an interactive dashboard with a live prediction tool and auto-generated business insights. Analyzes 5 core sales targets — Magenta migrations, voice lines, tablet lines, Home Internet, and insurance — across conversion, attach rates, and rep performance.",
+    impact: ["Random Forest model", "Attach-rate prediction", "Recoverable revenue", "Live dashboard"],
+    github: "https://github.com/mehaksaini0419/retailiq-wireless-analytics" },
 ];
 
 // VENTURE — real live website

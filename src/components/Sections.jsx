@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
-import { ChevronDown, Download, Linkedin, Mail, Phone, Sparkles } from "lucide-react";
+import { ChevronDown, Download, Linkedin, Mail, Phone, Sparkles, Github } from "lucide-react";
 import { Section, CountUp } from "./UI";
 import Icon from "./Icon";
 import { tools, strengths, experience, education, certifications, recruiterKpis, profile } from "../data/content";
@@ -175,6 +175,7 @@ export function Recruiter() {
           <div className="flex flex-wrap gap-3 justify-center">
             <a href="/Mehak%20Saini_Resume.pdf" target="_blank" rel="noopener noreferrer" download className="flex items-center gap-2 px-6 py-3 rounded-full font-medium text-slate-900 hover:scale-105 transition" style={{ background: "linear-gradient(90deg,#22d3ee,#34d399)" }}><Download size={18} /> Download Resume</a>
             <a href={profile.linkedin} target="_blank" rel="noreferrer" className="flex items-center gap-2 px-6 py-3 rounded-full font-medium glass hover:scale-105 transition"><Linkedin size={18} /> LinkedIn</a>
+            <a href={profile.github} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-6 py-3 rounded-full font-medium glass hover:scale-105 transition"><Github size={18} /> View all my code</a>
             <a href={`mailto:${profile.email}`} className="flex items-center gap-2 px-6 py-3 rounded-full font-medium glass hover:scale-105 transition"><Mail size={18} /> {profile.email}</a>
             <a href={`tel:${profile.phone}`} className="flex items-center gap-2 px-6 py-3 rounded-full font-medium glass hover:scale-105 transition"><Phone size={18} /> {profile.phone}</a>
           </div>

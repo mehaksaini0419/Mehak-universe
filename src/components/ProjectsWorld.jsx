@@ -4,11 +4,11 @@ import {
   BarChart, Bar, AreaChart, Area, FunnelChart, Funnel, LabelList,
   XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell,
 } from "recharts";
-import { Truck, Package } from "lucide-react";
+import { Truck, Package, Github, Database, Cpu } from "lucide-react";
 import { Section, Modal } from "./UI";
 import { projects, charts } from "../data/content";
 
-const accent = { retail: "#22d3ee", supplychain: "#34d399", finance: "#f5c451", marketing: "#fb923c", operations: "#a855f7" };
+const accent = { retail: "#22d3ee", supplychain: "#34d399", finance: "#f5c451", marketing: "#fb923c", operations: "#a855f7", sql: "#22d3ee", ml: "#a855f7" };
 
 function RetailViz() {
   return (
@@ -84,7 +84,71 @@ function OperationsViz() {
     </div>
   );
 }
-const viz = { retail: RetailViz, supplychain: SupplyViz, finance: FinanceViz, marketing: MarketingViz, operations: OperationsViz };
+
+// SQL database visual — animated tables + query flow
+function SqlViz() {
+  const tables = ["stores", "reps", "sales", "plans", "customers"];
+  return (
+    <div className="relative h-[200px] glass overflow-hidden p-4">
+      <div className="flex items-center gap-2 mb-3 text-cyan-300/80 font-mono text-[10px]">
+        <Database size={14} /> PostgreSQL · 5-table schema
+      </div>
+      <div className="grid grid-cols-5 gap-1.5">
+        {tables.map((t, i) => (
+          <motion.div key={t} initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }} transition={{ delay: i * 0.12 }}
+            className="rounded-lg border text-center py-2" style={{ borderColor: "#22d3ee55", background: "#22d3ee12" }}>
+            <div className="font-mono text-[9px] text-cyan-200 truncate px-1">{t}</div>
+            {[0, 1, 2].map((r) => (
+              <div key={r} className="mx-1.5 my-1 h-[3px] rounded" style={{ background: "#22d3ee44" }} />
+            ))}
+          </motion.div>
+        ))}
+      </div>
+      <div className="mt-3 font-mono text-[9px] text-cyan-300/70 overflow-hidden whitespace-nowrap">
+        <motion.div animate={{ x: ["0%", "-40%"] }} transition={{ repeat: Infinity, duration: 12, ease: "linear" }}>
+          SELECT rep, RANK() OVER (ORDER BY sales DESC) ··· LAG(sales) OVER (PARTITION BY store) ··· NTILE(4) ··· running_total ···
+        </motion.div>
+      </div>
+    </div>
+  );
+}
+
+// ML neural-net visual — animated nodes + prediction
+function MlViz() {
+  const layers = [3, 4, 4, 2];
+  return (
+    <div className="relative h-[200px] glass overflow-hidden p-4">
+      <div className="flex items-center gap-2 mb-2 text-violet-300/80 font-mono text-[10px]">
+        <Cpu size={14} /> Random Forest · attach-rate prediction
+      </div>
+      <svg viewBox="0 0 320 140" className="w-full h-[150px]" role="img" aria-label="Neural network predicting attach rate">
+        {layers.map((count, li) => {
+          const x = 30 + li * 90;
+          return [...Array(count)].map((_, ni) => {
+            const y = 70 - ((count - 1) * 26) / 2 + ni * 26;
+            const next = layers[li + 1];
+            return (
+              <g key={`${li}-${ni}`}>
+                {next && [...Array(next)].map((_, nj) => {
+                  const ny = 70 - ((next - 1) * 26) / 2 + nj * 26;
+                  return <line key={nj} x1={x} y1={y} x2={x + 90} y2={ny} stroke="#a855f7" strokeWidth="0.6" opacity="0.3" />;
+                })}
+                <circle cx={x} cy={y} r="6" fill="#a855f722" stroke="#a855f7" strokeWidth="1.5">
+                  <animate attributeName="opacity" values="0.4;1;0.4" dur={`${1.5 + ni * 0.3}s`} repeatCount="indefinite" />
+                </circle>
+              </g>
+            );
+          });
+        })}
+        <text x="300" y="55" textAnchor="end" fill="#34d399" fontSize="9" fontFamily="monospace">attach ✓</text>
+        <text x="300" y="92" textAnchor="end" fill="#f472b6" fontSize="9" fontFamily="monospace">no ✗</text>
+      </svg>
+    </div>
+  );
+}
+
+const viz = { retail: RetailViz, supplychain: SupplyViz, finance: FinanceViz, marketing: MarketingViz, operations: OperationsViz, sql: SqlViz, ml: MlViz };
 
 export default function ProjectsWorld() {
   const [active, setActive] = useState(null);
@@ -101,7 +165,7 @@ export default function ProjectsWorld() {
               <div className="mb-4"><Viz /></div>
               <div className="flex items-center justify-between">
                 <h3 className="font-display text-lg font-semibold">{p.title}</h3>
-                <span className="text-[10px] font-mono uppercase" style={{ color: c }}>{p.hasDashboard ? "live ↗" : "open ↗"}</span>
+                <span className="text-[10px] font-mono uppercase" style={{ color: c }}>{p.hasDashboard ? "live ↗" : p.github ? "github ↗" : "open ↗"}</span>
               </div>
               <p className="text-sm text-slate-400 mt-1">{p.tagline}</p>
               <div className="flex flex-wrap gap-1.5 mt-3">
@@ -136,8 +200,15 @@ export default function ProjectsWorld() {
                     className="w-full rounded-xl border border-cyan-400/30 bg-[#07090f]" style={{ height: "70vh" }} />
                 </div>
               )}
-              <div className="flex flex-wrap gap-2 mt-4">
+              <div className="flex flex-wrap gap-2 mt-4 items-center">
                 {active.stack.map((t) => (<span key={t} className="text-xs px-2.5 py-1 rounded-lg" style={{ background: `${c}18`, border: `1px solid ${c}40` }}>{t}</span>))}
+                {active.github && (
+                  <a href={active.github} target="_blank" rel="noopener noreferrer"
+                    className="ml-auto flex items-center gap-2 px-5 py-2.5 rounded-full font-medium text-slate-900 hover:scale-105 transition text-sm"
+                    style={{ background: `linear-gradient(90deg, ${c}, #a855f7)` }}>
+                    <Github size={16} /> View on GitHub
+                  </a>
+                )}
               </div>
             </div>
           );

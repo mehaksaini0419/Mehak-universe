@@ -1,0 +1,569 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Weee! Regional Performance</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+
+<style>
+:root{
+  color-scheme: light;
+  --paper:#f2f3f4; --panel:#ffffff; --panel-2:#fafbfb;
+  --ink:#14161a; --ink-2:#3c434b; --muted:#646c76;
+  --rule:#d7dade; --rule-soft:#e6e8ea;
+  --focus:#eb6834; --focus-ink:#a8390f;
+  --ctx:#a4abb3; --grid:#e6e8ea;
+  --serif:"Newsreader",Georgia,"Times New Roman",serif;
+  --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme: dark;
+    --paper:#111317; --panel:#181b20; --panel-2:#1d2126;
+    --ink:#eef0f2; --ink-2:#c3c8ce; --muted:#949ba4;
+    --rule:#2b3038; --rule-soft:#23272d;
+    --focus:#f07c4c; --focus-ink:#f6a683;
+    --ctx:#6e767f; --grid:#262b32;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme: dark;
+  --paper:#111317; --panel:#181b20; --panel-2:#1d2126;
+  --ink:#eef0f2; --ink-2:#c3c8ce; --muted:#949ba4;
+  --rule:#2b3038; --rule-soft:#23272d;
+  --focus:#f07c4c; --focus-ink:#f6a683;
+  --ctx:#6e767f; --grid:#262b32;
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0; background:var(--paper); color:var(--ink);
+  font-family:var(--serif); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:980px; margin:0 auto; padding-inline:20px; padding-block:0 72px}
+
+/* ---------- masthead ---------- */
+.bar{
+  position:sticky; top:env(safe-area-inset-top,0px); z-index:20;
+  background:color-mix(in srgb, var(--paper) 90%, transparent);
+  backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--rule);
+}
+.bar-in{
+  max-width:980px; margin:0 auto; padding:10px 20px;
+  display:flex; gap:14px; align-items:center; justify-content:space-between; flex-wrap:wrap;
+}
+.bar-name{font-family:var(--mono); font-size:12px; letter-spacing:.09em; text-transform:uppercase; color:var(--ink)}
+.bar-name span{color:var(--muted)}
+.chip{
+  font-family:var(--mono); font-size:10.5px; letter-spacing:.06em; text-transform:uppercase;
+  border:1px solid var(--rule); color:var(--muted);
+  padding:4px 9px; border-radius:2px; background:var(--panel-2);
+}
+
+header.head{padding-block:56px 34px; border-bottom:1px solid var(--rule)}
+.eyebrow{
+  font-family:var(--mono); font-size:11px; letter-spacing:.14em; text-transform:uppercase;
+  color:var(--muted); margin:0 0 18px;
+}
+h1{
+  font-family:var(--serif); font-weight:500; font-size:clamp(34px,6vw,54px);
+  line-height:1.06; letter-spacing:-.018em; margin:0 0 18px; text-wrap:balance; max-width:20ch;
+}
+.standfirst{font-size:20px; line-height:1.55; color:var(--ink-2); max-width:62ch; margin:0}
+
+.disclosure{
+  margin-top:26px; padding:13px 16px; border:1px solid var(--rule); border-left:3px solid var(--focus);
+  background:var(--panel-2); border-radius:2px;
+  font-family:var(--mono); font-size:12.5px; line-height:1.6; color:var(--ink-2);
+}
+
+/* ---------- figures strip ---------- */
+.figs{
+  display:grid; grid-template-columns:repeat(auto-fit,minmax(138px,1fr));
+  gap:1px; background:var(--rule); border:1px solid var(--rule);
+  margin:34px 0 8px; border-radius:2px; overflow:hidden;
+}
+.fig{background:var(--panel); padding:15px 16px}
+.fig dt{
+  font-family:var(--mono); font-size:10.5px; letter-spacing:.07em; text-transform:uppercase;
+  color:var(--muted); margin:0 0 6px;
+}
+.fig dd{
+  margin:0; font-family:var(--mono); font-weight:600; font-size:21px;
+  font-variant-numeric:tabular-nums; letter-spacing:-.02em; color:var(--ink);
+}
+.figs-note{font-family:var(--mono); font-size:11px; color:var(--muted); margin:0 0 44px}
+
+/* ---------- sections ---------- */
+section{padding-block:40px; border-bottom:1px solid var(--rule-soft)}
+section:last-of-type{border-bottom:0}
+h2{
+  font-family:var(--mono); font-size:11.5px; font-weight:600; letter-spacing:.14em;
+  text-transform:uppercase; color:var(--muted); margin:0 0 20px;
+}
+p{max-width:66ch; margin:0 0 17px}
+.lead{font-size:18.5px}
+
+.finding{padding-block:46px; border-bottom:1px solid var(--rule-soft)}
+.f-head{display:flex; gap:16px; align-items:baseline; margin-bottom:6px}
+.f-tag{
+  font-family:var(--mono); font-size:12px; font-weight:600; letter-spacing:.08em;
+  color:var(--focus-ink); flex:none; padding-top:6px;
+}
+h3{
+  font-family:var(--serif); font-weight:500; font-size:clamp(23px,3.4vw,30px); line-height:1.2;
+  letter-spacing:-.012em; margin:0; text-wrap:balance; max-width:26ch;
+}
+.f-body{margin-left:0}
+@media(min-width:680px){ .f-body{margin-left:44px} }
+
+.rec{
+  margin-top:22px; padding:15px 18px; background:var(--panel); border:1px solid var(--rule);
+  border-radius:2px; max-width:68ch;
+}
+.rec b{
+  display:block; font-family:var(--mono); font-size:10.5px; letter-spacing:.1em;
+  text-transform:uppercase; color:var(--muted); font-weight:600; margin-bottom:7px;
+}
+.rec p{margin:0; font-size:16.5px; max-width:none}
+
+/* ---------- charts ---------- */
+figure{margin:26px 0 0; background:var(--panel); border:1px solid var(--rule); border-radius:2px; overflow:hidden}
+figcaption{
+  padding:13px 16px 0; font-family:var(--mono); font-size:11.5px; letter-spacing:.04em;
+  color:var(--ink-2); line-height:1.5;
+}
+figcaption em{color:var(--muted); font-style:normal}
+.chart{position:relative; padding:6px 10px 10px}
+.chart svg{display:block; width:100%; height:auto; overflow:visible}
+.legend{
+  display:flex; gap:16px; flex-wrap:wrap; padding:0 16px 12px;
+  font-family:var(--mono); font-size:11px; color:var(--ink-2);
+}
+.legend i{display:inline-block; width:14px; height:3px; border-radius:2px; margin-right:6px; vertical-align:middle}
+
+.tip{
+  position:absolute; pointer-events:none; opacity:0; transition:opacity .09s;
+  background:var(--ink); color:var(--paper); border-radius:3px; padding:8px 10px;
+  font-family:var(--mono); font-size:11px; line-height:1.55; white-space:nowrap;
+  font-variant-numeric:tabular-nums; z-index:5; box-shadow:0 4px 14px rgba(0,0,0,.18);
+}
+.tip b{font-weight:600; display:block; margin-bottom:4px; opacity:.75}
+.tip span{display:flex; justify-content:space-between; gap:14px}
+.tip .hi{color:var(--focus)}
+
+.datatoggle{
+  appearance:none; background:none; border:0; border-top:1px solid var(--rule-soft);
+  width:100%; text-align:left; padding:10px 16px; cursor:pointer;
+  font-family:var(--mono); font-size:10.5px; letter-spacing:.09em; text-transform:uppercase; color:var(--muted);
+}
+.datatoggle:hover{color:var(--ink)}
+.datatoggle:focus-visible{outline:2px solid var(--focus); outline-offset:-2px}
+.tablewrap{overflow-x:auto; border-top:1px solid var(--rule-soft)}
+table{border-collapse:collapse; width:100%; font-family:var(--mono); font-size:11.5px; font-variant-numeric:tabular-nums}
+th,td{padding:6px 12px; text-align:right; white-space:nowrap; border-bottom:1px solid var(--rule-soft)}
+th:first-child,td:first-child{text-align:left; position:sticky; left:0; background:var(--panel)}
+thead th{color:var(--muted); font-weight:500; letter-spacing:.04em}
+tr.hi td{color:var(--focus-ink); font-weight:600}
+
+/* ---------- lists ---------- */
+ol.checks{counter-reset:c; list-style:none; padding:0; margin:0; max-width:68ch}
+ol.checks li{
+  counter-increment:c; position:relative; padding-left:34px; margin-bottom:15px; font-size:16.5px;
+}
+ol.checks li::before{
+  content:counter(c,decimal-leading-zero); position:absolute; left:0; top:3px;
+  font-family:var(--mono); font-size:11px; color:var(--muted); letter-spacing:.04em;
+}
+dl.meta{display:grid; grid-template-columns:auto 1fr; gap:8px 22px; margin:0; max-width:68ch; align-items:baseline}
+dl.meta dt{font-family:var(--mono); font-size:11px; letter-spacing:.06em; text-transform:uppercase; color:var(--muted)}
+dl.meta dd{margin:0; font-family:var(--mono); font-size:13px; color:var(--ink-2); line-height:1.6}
+
+footer{padding-block:38px; border-top:1px solid var(--rule); font-family:var(--mono); font-size:12.5px; color:var(--muted)}
+footer a{color:var(--ink); text-decoration:none; border-bottom:1px solid var(--rule)}
+footer a:hover{border-color:var(--focus)}
+.foot-row{display:flex; gap:26px; flex-wrap:wrap; align-items:baseline}
+
+@media (prefers-reduced-motion: reduce){ *{transition:none!important; animation:none!important} }
+</style>
+<style>
+:root{padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px)}
+img{max-width:100%}
+[hidden]{display:none!important}
+</style>
+</head>
+<body>
+<div class="bar"><div class="bar-in">
+  <div class="bar-name">Mehak Saini <span>/ Case study 01</span></div>
+  <div class="chip">Simulated data</div>
+</div></div>
+
+<div class="wrap">
+
+<header class="head">
+  <p class="eyebrow">Regional P&amp;L analysis · 18 months · 6 markets</p>
+  <h1>A margin leak hiding behind a good quarter</h1>
+  <p class="standfirst">Revenue beat plan by 6%. Underneath it, one market was quietly losing $105,000 a month to delivery costs, a second was refunding four times the company rate, and a third was buying orders it wasn't keeping.</p>
+  <div class="disclosure">
+    <strong>Simulated data.</strong> Modeled on Weee!'s public business model for a portfolio exercise — not company data, and not affiliated with Weee!. The analysis, findings and recommendations are mine; the dataset was generated to behave like a real e-grocery P&amp;L.
+  </div>
+</header>
+
+<dl class="figs">
+  <div class="fig"><dt>Gross revenue</dt><dd>$314.1M</dd></div>
+  <div class="fig"><dt>Gross margin</dt><dd>$83.5M</dd></div>
+  <div class="fig"><dt>Margin %</dt><dd>27.9%</dd></div>
+  <div class="fig"><dt>Orders</dt><dd>5.29M</dd></div>
+  <div class="fig"><dt>AOV</dt><dd>$59.43</dd></div>
+  <div class="fig"><dt>Plan attainment</dt><dd>106.0%</dd></div>
+</dl>
+<p class="figs-note">Jan 2025 – Jun 2026 · 3,276 region-days · 864 category-months · 6 markets · 8 categories</p>
+
+<section>
+  <h2>The question</h2>
+  <p class="lead">Every market was at or above its revenue target, so the monthly deck said the business was healthy. The question I set myself was the one a finance partner actually gets asked: <em>is it?</em> Revenue attainment is a gross number. It says nothing about what each order costs to fulfil, what share of revenue is being given away, or whether the customers arriving are staying.</p>
+  <p>So I built the P&amp;L down to contribution margin by market and month, then looked for places where a cost line was moving while revenue held still — the pattern that hides inside a good top line.</p>
+</section>
+
+<section>
+  <h2>What I found</h2>
+  <p class="lead">Four things, three of them problems. Together they account for roughly <strong>$1.9M of annualised contribution margin</strong> that the revenue view was concealing.</p>
+</section>
+
+<!-- F1 -->
+<div class="finding">
+  <div class="f-head"><div class="f-tag">F1</div>
+    <h3>Los Angeles is paying 22% more per delivery than it did in January</h3></div>
+  <div class="f-body">
+    <p>Delivery cost per order in LA sat flat at about $6.00 for all of 2025. From January 2026 it climbs every single month — $6.30, $6.56, $6.76, $7.07, $7.35, $7.68 — while order volume and revenue hold steady. No other market moves more than 1% across the same period.</p>
+    <p>At June's volume of 75,984 orders, the gap between the current rate and January's rate is <strong>$105,070 a month</strong>, or about <strong>$1.26M annualised</strong>. None of it shows up in a revenue-versus-target view, which is why it ran for six months.</p>
+
+    <figure>
+      <figcaption><strong>Delivery cost per order, by market</strong><br><em>Los Angeles breaks from the pack in January 2026. Every other market is flat.</em></figcaption>
+      <div class="chart" data-chart="dcpo"></div>
+      <div class="legend">
+        <span><i style="background:var(--focus)"></i>Los Angeles, CA</span>
+        <span><i style="background:var(--ctx)"></i>Five other markets</span>
+      </div>
+      <button class="datatoggle" data-table="dcpo" aria-expanded="false">Show data table</button>
+      <div class="tablewrap" data-tablefor="dcpo" hidden></div>
+    </figure>
+
+    <div class="rec"><b>Recommendation</b>
+      <p>Audit the City of Industry fulfilment centre's routing and carrier mix against January's baseline before the next planning cycle. The step-change timing points to a contract or route change rather than gradual drift, which means it is likely reversible. Hold LA's contribution margin, not its revenue, as the reported metric.</p>
+    </div>
+  </div>
+</div>
+
+<!-- F2 -->
+<div class="finding">
+  <div class="f-head"><div class="f-tag">F2</div>
+    <h3>Seattle's refund rate has tripled, and it is concentrated in one category</h3></div>
+  <div class="f-body">
+    <p>Seattle ran at the company norm of about 1.1% of revenue refunded through September 2025. From October it climbs without pause to <strong>4.10%</strong> by June 2026 — close to four times every other market, which all stay between 1.07% and 1.12%.</p>
+    <p>The category view says where it is coming from. Seafood &amp; Meat carries a <strong>21.0% gross margin</strong> in Seattle against 28–32% for every other category in that market. A rising refund rate sitting on top of the thinnest-margin category is a product quality problem, not a customer behaviour problem.</p>
+
+    <figure>
+      <figcaption><strong>Refund rate as % of gross revenue, by market</strong><br><em>Seattle separates from the company norm in October 2025 and keeps climbing.</em></figcaption>
+      <div class="chart" data-chart="refund"></div>
+      <div class="legend">
+        <span><i style="background:var(--focus)"></i>Seattle, WA</span>
+        <span><i style="background:var(--ctx)"></i>Five other markets</span>
+      </div>
+      <button class="datatoggle" data-table="refund" aria-expanded="false">Show data table</button>
+      <div class="tablewrap" data-tablefor="refund" hidden></div>
+    </figure>
+
+    <div class="rec"><b>Recommendation</b>
+      <p>Run a supplier audit on Seattle's Seafood &amp; Meat vendors, starting with anything onboarded or re-contracted around September 2025. Refunds at 4.1% on that category's volume are costing more than the margin it earns. This is a cold-chain and vendor-quality investigation, and it should be scoped as one.</p>
+    </div>
+  </div>
+</div>
+
+<!-- F3 -->
+<div class="finding">
+  <div class="f-head"><div class="f-tag">F3</div>
+    <h3>New York / New Jersey is buying orders it isn't keeping</h3></div>
+  <div class="f-body">
+    <p>NY/NJ gives away <strong>8.5% of revenue</strong> in promotional discounts. Every other market sits at 4.5%. If the spend were working, NY/NJ would show the strongest retention. It shows the weakest: a <strong>56.3% repeat-order rate</strong> against 66% across the other growth markets and 74% in the mature Bay Area.</p>
+    <p>Double the discount, the lowest loyalty. The promotional spend is purchasing one-time orders, and the market's cohorts are not maturing the way Bay Area's did at the same stage.</p>
+
+      <figure>
+        <figcaption><strong>Promotional spend and repeat rate, by market</strong><br><em>Two measures, two scales, shown separately — NY/NJ is the outlier in both directions.</em></figcaption>
+        <div class="chart" data-chart="promo"></div>
+        <button class="datatoggle" data-table="promo" aria-expanded="false">Show data table</button>
+        <div class="tablewrap" data-tablefor="promo" hidden></div>
+      </figure>
+
+    <div class="rec"><b>Recommendation</b>
+      <p>Move roughly half of the NY/NJ promotional budget from acquisition discounting into second- and third-order incentives, and measure it on 90-day repeat rate instead of order count. Bay Area's curve is the benchmark to aim the market at — it reached 74% repeat on 4.5% promotional spend.</p>
+    </div>
+  </div>
+</div>
+
+<!-- F4 -->
+<div class="finding">
+  <div class="f-head"><div class="f-tag">F4</div>
+    <h3>The targets are being set from the top down, and it shows</h3></div>
+  <div class="f-body">
+    <p>Attainment is not stable — it oscillates and then decays. January and February of both years overshoot hard (113.6%, 125.5%, then 115.2%, 125.2%) because the targets do not carry Lunar New Year seasonality, which lifts Chinese, Korean and Vietnamese categories by roughly a fifth. Every other month lands within a couple of points of 100%, and the last three months of the window come in at 100.9%, 100.3%, 99.6% and 100.2%.</p>
+    <p>A plan that misses two months by twenty-five points and hits the rest almost exactly is not a forecast. It is an annual number divided by twelve, with the seasonality left out.</p>
+
+    <figure>
+      <figcaption><strong>Revenue attainment vs. plan, all markets</strong><br><em>Two seasonal overshoots a year; flat against plan everywhere else.</em></figcaption>
+      <div class="chart" data-chart="att"></div>
+      <button class="datatoggle" data-table="att" aria-expanded="false">Show data table</button>
+      <div class="tablewrap" data-tablefor="att" hidden></div>
+    </figure>
+
+    <div class="rec"><b>Recommendation</b>
+      <p>Rebuild next year's plan bottom-up by market, with a seasonality index applied at category level so Q1 carries the Lunar New Year lift explicitly. The current method makes January look like outperformance and makes June look like a miss, when neither is true.</p>
+    </div>
+  </div>
+</div>
+
+<section>
+  <h2>What's working</h2>
+  <p>Houston is the one to fund. Orders grew <strong>41%</strong> over the window, from 21,543 a month to 30,338, on the lowest delivery cost per order in the network at $5.84 and promotional spend at the 4.5% norm. It is the newest market, opened in 2022, and it is growing without being bought. Sacramento is the counterpart — steady, cheap to serve, but only 42,892 new customers against Houston's 136,530, which suggests it is under-invested rather than underperforming.</p>
+</section>
+
+<section>
+  <h2>What I'd validate first with real data</h2>
+  <ol class="checks">
+    <li>Whether LA's cost step-change is a carrier contract, a route-density change, or a zone-mix shift — the dataset shows the effect, not the cause, and the recommendation changes depending on which it is.</li>
+    <li>Whether Seattle's refunds are concentrated in specific SKUs or specific vendors. Category-level is as deep as this data goes; a vendor audit needs SKU and lot detail.</li>
+    <li>Whether NY/NJ's promotional spend is acquisition or reactivation. Those look identical in a discount total and call for opposite responses.</li>
+    <li>How the targets were actually built. I inferred top-down allocation from the residual pattern, which is strong evidence but not proof.</li>
+  </ol>
+</section>
+
+<section>
+  <h2>Method</h2>
+  <dl class="meta">
+    <dt>Data</dt><dd>4 CSVs · 3,276 region-days (Jan 2025 – Jun 2026), 864 category-months, 108 target-months, 6 region dimensions</dd>
+    <dt>Model</dt><dd>Star schema — region and date dimensions, three fact tables joined on region + month</dd>
+    <dt>Measures</dt><dd>Gross and net revenue, AOV, gross margin $ and %, delivery cost per order, contribution margin, attainment %, gap-to-target, promo % of revenue, refund rate %, repeat-order %, YoY and MoM</dd>
+    <dt>Tools</dt><dd>Power BI (DAX, Power Query) for the report; Python (pandas) to verify every figure on this page against the source files</dd>
+    <dt>Checks</dt><dd>Net revenue components reconciled to gross; category revenue reconciled to daily revenue within 4.7% (category file excludes non-category lines); all figures recomputed from raw CSVs rather than carried from the dashboard</dd>
+  </dl>
+</section>
+
+<footer>
+  <div class="foot-row">
+    <span>Mehak Saini — FP&amp;A &amp; Business Operations Analyst</span>
+    <a href="https://www.linkedin.com/in/mehaksaini04">LinkedIn</a>
+    <a href="https://github.com/mehaksaini0419">GitHub</a>
+    <span>msaini0419@outlook.com</span>
+  </div>
+</footer>
+
+</div>
+
+<script>
+const D = {"months":["2025-01","2025-02","2025-03","2025-04","2025-05","2025-06","2025-07","2025-08","2025-09","2025-10","2025-11","2025-12","2026-01","2026-02","2026-03","2026-04","2026-05","2026-06"],"dcpo":{"Bay Area, CA":[6.18,6.29,6.16,6.13,6.2,6.18,6.11,6.22,6.24,6.22,6.12,6.24,6.23,6.23,6.23,6.19,6.21,6.24],"Houston, TX":[5.81,5.77,5.84,5.8,5.8,5.83,5.76,5.8,5.81,5.83,5.77,5.8,5.8,5.76,5.83,5.82,5.76,5.84],"Los Angeles, CA":[5.98,6.02,6.02,6,6.01,6.03,6.04,6.01,5.95,5.97,5.96,5.96,6.3,6.56,6.76,7.07,7.35,7.68],"New York / NJ":[7.14,7.07,7.11,7.13,7.04,7.09,7.12,7.08,7.12,7.14,7.06,7.07,7.1,7.11,7.09,7.09,7.12,7.05],"Sacramento, CA":[5.91,5.92,5.86,5.83,5.85,5.91,5.93,5.92,5.92,5.92,5.87,5.87,5.92,5.89,5.89,5.89,5.87,5.87],"Seattle, WA":[6.49,6.57,6.47,6.55,6.46,6.55,6.48,6.48,6.46,6.51,6.49,6.47,6.51,6.51,6.52,6.5,6.48,6.5]},"refund":{"Bay Area, CA":[1.09,1.08,1.11,1.08,1.08,1.11,1.16,1.1,1.08,1.07,1.12,1.07,1.12,1.04,1.13,1.11,1.07,1.07],"Houston, TX":[1.09,1.05,1.1,1.07,1.1,1.1,1.14,1.07,1.09,1.1,1.1,1.13,1.08,1.16,1.13,1.11,1.11,1.11],"Los Angeles, CA":[1.15,1.12,1.13,1.08,1.13,1.09,1.08,1.11,1.11,1.08,1.11,1.08,1.09,1.1,1.09,1.1,1.09,1.12],"New York / NJ":[1.12,1.12,1.07,1.09,1.08,1.09,1.1,1.1,1.08,1.1,1.08,1.15,1.08,1.12,1.13,1.1,1.1,1.1],"Sacramento, CA":[1.06,1.1,1.15,1.09,1.12,1.11,1.12,1.12,1.11,1.1,1.09,1.13,1.11,1.14,1.08,1.1,1.09,1.12],"Seattle, WA":[1.13,1.08,1.11,1.15,1.13,1.14,1.08,1.1,1.1,1.46,1.77,2.17,2.36,2.89,3.27,3.55,3.89,4.1]},"attainment":[113.6,125.5,101.8,102.7,102.7,102.4,102.7,102.5,101.4,101.2,107.6,107.6,115.2,125.2,100.9,100.3,99.6,100.2],"promo_repeat":{"Bay Area, CA":{"promo":4.5,"repeat":74.3},"Houston, TX":{"promo":4.5,"repeat":66.3},"Los Angeles, CA":{"promo":4.5,"repeat":66.2},"New York / NJ":{"promo":8.5,"repeat":56.3},"Sacramento, CA":{"promo":4.5,"repeat":66.3},"Seattle, WA":{"promo":4.5,"repeat":66.3}}};
+
+const SVGNS = "http://www.w3.org/2000/svg";
+const el = (n, a) => { const e = document.createElementNS(SVGNS, n); for (const k in a) e.setAttribute(k, a[k]); return e; };
+const shortMonth = m => { const [y, mo] = m.split("-"); return ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"][+mo-1] + " " + y.slice(2); };
+const css = v => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+
+/* ---------- multi-series line chart with one highlighted series ---------- */
+function lineChart(host, series, focusKey, fmt, yTicks){
+  const W = 860, H = 330, M = { t: 18, r: 96, b: 34, l: 52 };
+  const months = D.months, n = months.length;
+  const all = Object.values(series).flat();
+  const lo = Math.min(...all), hi = Math.max(...all);
+  const pad = (hi - lo) * 0.12 || 1;
+  const y0 = Math.max(0, lo - pad), y1 = hi + pad;
+  const X = i => M.l + i * (W - M.l - M.r) / (n - 1);
+  const Y = v => M.t + (1 - (v - y0) / (y1 - y0)) * (H - M.t - M.b);
+
+  const svg = el("svg", { viewBox: `0 0 ${W} ${H}`, role: "img",
+    "aria-label": host.closest("figure").querySelector("figcaption").textContent });
+
+  // grid + y labels
+  for (const t of yTicks){
+    if (t < y0 || t > y1) continue;
+    svg.appendChild(el("line", { x1: M.l, x2: W - M.r, y1: Y(t), y2: Y(t), stroke: css("--grid"), "stroke-width": 1 }));
+    const lab = el("text", { x: M.l - 10, y: Y(t) + 4, "text-anchor": "end", fill: css("--muted"),
+      "font-family": "IBM Plex Mono, monospace", "font-size": 11 });
+    lab.textContent = fmt(t); svg.appendChild(lab);
+  }
+  // x labels every 3rd month
+  months.forEach((m, i) => {
+    if (i % 3 !== 0 && i !== n - 1) return;
+    const t = el("text", { x: X(i), y: H - 12, "text-anchor": "middle", fill: css("--muted"),
+      "font-family": "IBM Plex Mono, monospace", "font-size": 11 });
+    t.textContent = shortMonth(m); svg.appendChild(t);
+  });
+
+  const path = vals => vals.map((v, i) => (i ? "L" : "M") + X(i).toFixed(1) + " " + Y(v).toFixed(1)).join(" ");
+  // context series first
+  for (const k in series) if (k !== focusKey)
+    svg.appendChild(el("path", { d: path(series[k]), fill: "none", stroke: css("--ctx"),
+      "stroke-width": 1.5, "stroke-linejoin": "round", opacity: .65 }));
+  // focus series on top
+  const fv = series[focusKey];
+  svg.appendChild(el("path", { d: path(fv), fill: "none", stroke: css("--focus"),
+    "stroke-width": 2.5, "stroke-linejoin": "round", "stroke-linecap": "round" }));
+  svg.appendChild(el("circle", { cx: X(n - 1), cy: Y(fv[n - 1]), r: 4.5, fill: css("--focus"),
+    stroke: css("--panel"), "stroke-width": 2 }));
+  const dl = el("text", { x: X(n - 1) + 12, y: Y(fv[n - 1]) + 4, fill: css("--focus"),
+    "font-family": "IBM Plex Mono, monospace", "font-size": 12, "font-weight": 600 });
+  dl.textContent = fmt(fv[n - 1]); svg.appendChild(dl);
+
+  // crosshair
+  const cross = el("line", { y1: M.t, y2: H - M.b, stroke: css("--muted"), "stroke-width": 1,
+    "stroke-dasharray": "3 3", opacity: 0 });
+  svg.appendChild(cross);
+  host.appendChild(svg);
+
+  const tip = document.createElement("div"); tip.className = "tip"; host.appendChild(tip);
+  const keys = Object.keys(series).sort((a, b) => series[b][n-1] - series[a][n-1]);
+  svg.addEventListener("pointermove", e => {
+    const r = svg.getBoundingClientRect();
+    const px = (e.clientX - r.left) / r.width * W;
+    let i = Math.round((px - M.l) / ((W - M.l - M.r) / (n - 1)));
+    i = Math.max(0, Math.min(n - 1, i));
+    cross.setAttribute("x1", X(i)); cross.setAttribute("x2", X(i)); cross.setAttribute("opacity", .55);
+    tip.innerHTML = "<b>" + shortMonth(months[i]) + "</b>" +
+      keys.map(k => `<span class="${k === focusKey ? "hi" : ""}"><span>${k}</span><span>${fmt(series[k][i])}</span></span>`).join("");
+    tip.style.opacity = 1;
+    const hx = X(i) / W * r.width;
+    tip.style.left = Math.max(6, Math.min(r.width - tip.offsetWidth - 6, hx + 14)) + "px";
+    tip.style.top = "14px";
+  });
+  svg.addEventListener("pointerleave", () => { tip.style.opacity = 0; cross.setAttribute("opacity", 0); });
+}
+
+/* ---------- single-series line with a 100% reference ---------- */
+function attChart(host){
+  const W = 860, H = 300, M = { t: 18, r: 30, b: 34, l: 52 };
+  const v = D.attainment, months = D.months, n = v.length;
+  const y0 = 95, y1 = 130;
+  const X = i => M.l + i * (W - M.l - M.r) / (n - 1);
+  const Y = x => M.t + (1 - (x - y0) / (y1 - y0)) * (H - M.t - M.b);
+  const svg = el("svg", { viewBox: `0 0 ${W} ${H}`, role: "img", "aria-label": "Revenue attainment versus plan by month" });
+  for (const t of [100, 110, 120, 130]){
+    svg.appendChild(el("line", { x1: M.l, x2: W - M.r, y1: Y(t), y2: Y(t),
+      stroke: t === 100 ? css("--muted") : css("--grid"), "stroke-width": 1,
+      "stroke-dasharray": t === 100 ? "4 3" : "" , opacity: t === 100 ? .7 : 1 }));
+    const lab = el("text", { x: M.l - 10, y: Y(t) + 4, "text-anchor": "end", fill: css("--muted"),
+      "font-family": "IBM Plex Mono, monospace", "font-size": 11 });
+    lab.textContent = t + "%"; svg.appendChild(lab);
+  }
+  const planLab = el("text", { x: W - M.r, y: Y(100) - 8, "text-anchor": "end", fill: css("--muted"),
+    "font-family": "IBM Plex Mono, monospace", "font-size": 11 });
+  planLab.textContent = "plan"; svg.appendChild(planLab);
+  months.forEach((m, i) => {
+    if (i % 3 !== 0 && i !== n - 1) return;
+    const t = el("text", { x: X(i), y: H - 12, "text-anchor": "middle", fill: css("--muted"),
+      "font-family": "IBM Plex Mono, monospace", "font-size": 11 });
+    t.textContent = shortMonth(m); svg.appendChild(t);
+  });
+  svg.appendChild(el("path", { d: v.map((x, i) => (i ? "L" : "M") + X(i).toFixed(1) + " " + Y(x).toFixed(1)).join(" "),
+    fill: "none", stroke: css("--focus"), "stroke-width": 2.5, "stroke-linejoin": "round" }));
+  [1, 13].forEach(i => {
+    svg.appendChild(el("circle", { cx: X(i), cy: Y(v[i]), r: 4.5, fill: css("--focus"), stroke: css("--panel"), "stroke-width": 2 }));
+    const t = el("text", { x: X(i), y: Y(v[i]) - 12, "text-anchor": "middle", fill: css("--focus"),
+      "font-family": "IBM Plex Mono, monospace", "font-size": 12, "font-weight": 600 });
+    t.textContent = v[i] + "%"; svg.appendChild(t);
+  });
+  const cross = el("line", { y1: M.t, y2: H - M.b, stroke: css("--muted"), "stroke-width": 1, "stroke-dasharray": "3 3", opacity: 0 });
+  svg.appendChild(cross); host.appendChild(svg);
+  const tip = document.createElement("div"); tip.className = "tip"; host.appendChild(tip);
+  svg.addEventListener("pointermove", e => {
+    const r = svg.getBoundingClientRect();
+    let i = Math.round(((e.clientX - r.left) / r.width * W - M.l) / ((W - M.l - M.r) / (n - 1)));
+    i = Math.max(0, Math.min(n - 1, i));
+    cross.setAttribute("x1", X(i)); cross.setAttribute("x2", X(i)); cross.setAttribute("opacity", .55);
+    tip.innerHTML = "<b>" + shortMonth(months[i]) + "</b><span><span>Attainment</span><span class='hi'>" + v[i] + "%</span></span>";
+    tip.style.opacity = 1;
+    const hx = X(i) / W * r.width;
+    tip.style.left = Math.max(6, Math.min(r.width - tip.offsetWidth - 6, hx + 14)) + "px";
+    tip.style.top = "14px";
+  });
+  svg.addEventListener("pointerleave", () => { tip.style.opacity = 0; cross.setAttribute("opacity", 0); });
+}
+
+/* ---------- paired bar small-multiples ---------- */
+function promoChart(host){
+  const regions = Object.keys(D.promo_repeat);
+  const W = 860, rowH = 30, padTop = 34, H = padTop + regions.length * rowH + 14;
+  const colW = (W - 24) / 2, labW = 132, barW = colW - labW - 58;
+  const svg = el("svg", { viewBox: `0 0 ${W} ${H}`, role: "img",
+    "aria-label": "Promotional spend as percent of revenue, and average repeat order rate, by market" });
+  const panels = [
+    { x: 0, key: "promo", title: "Promo spend, % of revenue", max: 10, fmt: v => v.toFixed(1) + "%" },
+    { x: colW + 24, key: "repeat", title: "Avg repeat-order rate", max: 80, fmt: v => v.toFixed(1) + "%" }
+  ];
+  panels.forEach(p => {
+    const t = el("text", { x: p.x, y: 14, fill: css("--ink-2"),
+      "font-family": "IBM Plex Mono, monospace", "font-size": 11.5, "font-weight": 500 });
+    t.textContent = p.title; svg.appendChild(t);
+    regions.forEach((r, i) => {
+      const y = padTop + i * rowH;
+      const hot = r === "New York / NJ";
+      const lab = el("text", { x: p.x, y: y + 15, fill: hot ? css("--focus-ink") : css("--muted"),
+        "font-family": "IBM Plex Mono, monospace", "font-size": 11, "font-weight": hot ? 600 : 400 });
+      lab.textContent = r; svg.appendChild(lab);
+      const v = D.promo_repeat[r][p.key];
+      const w = Math.max(2, v / p.max * barW);
+      svg.appendChild(el("rect", { x: p.x + labW, y: y + 4, width: w, height: 14, rx: 3,
+        fill: hot ? css("--focus") : css("--ctx"), opacity: hot ? 1 : .6 }));
+      const val = el("text", { x: p.x + labW + w + 8, y: y + 15, fill: hot ? css("--focus-ink") : css("--ink-2"),
+        "font-family": "IBM Plex Mono, monospace", "font-size": 11.5, "font-weight": hot ? 600 : 400 });
+      val.textContent = p.fmt(v); svg.appendChild(val);
+    });
+  });
+  host.appendChild(svg);
+}
+
+/* ---------- data tables ---------- */
+function buildTable(kind){
+  const w = document.querySelector(`[data-tablefor="${kind}"]`);
+  let html = "";
+  if (kind === "promo"){
+    html = "<table><thead><tr><th>Market</th><th>Promo % of revenue</th><th>Avg repeat-order rate</th></tr></thead><tbody>" +
+      Object.entries(D.promo_repeat).map(([r, o]) =>
+        `<tr class="${r === "New York / NJ" ? "hi" : ""}"><td>${r}</td><td>${o.promo.toFixed(1)}%</td><td>${o.repeat.toFixed(1)}%</td></tr>`).join("") +
+      "</tbody></table>";
+  } else if (kind === "att"){
+    html = "<table><thead><tr><th>Month</th><th>Attainment</th></tr></thead><tbody>" +
+      D.months.map((m, i) => `<tr><td>${shortMonth(m)}</td><td>${D.attainment[i].toFixed(1)}%</td></tr>`).join("") +
+      "</tbody></table>";
+  } else {
+    const s = D[kind], keys = Object.keys(s), unit = kind === "dcpo" ? "$" : "";
+    const focus = kind === "dcpo" ? "Los Angeles, CA" : "Seattle, WA";
+    html = "<table><thead><tr><th>Month</th>" + keys.map(k => `<th>${k}</th>`).join("") + "</tr></thead><tbody>" +
+      D.months.map((m, i) => `<tr><td>${shortMonth(m)}</td>` +
+        keys.map(k => `<td${k === focus ? ' style="color:var(--focus-ink);font-weight:600"' : ""}>${unit}${s[k][i].toFixed(2)}${unit ? "" : "%"}</td>`).join("") +
+        "</tr>").join("") + "</tbody></table>";
+  }
+  w.innerHTML = html;
+}
+
+document.querySelectorAll(".datatoggle").forEach(btn => {
+  btn.addEventListener("click", () => {
+    const k = btn.dataset.table;
+    const w = document.querySelector(`[data-tablefor="${k}"]`);
+    const open = !w.hidden;
+    if (!open && !w.innerHTML) buildTable(k);
+    w.hidden = open;
+    btn.setAttribute("aria-expanded", String(!open));
+    btn.textContent = open ? "Show data table" : "Hide data table";
+  });
+});
+
+lineChart(document.querySelector('[data-chart="dcpo"]'), D.dcpo, "Los Angeles, CA", v => "$" + v.toFixed(2), [5.5, 6, 6.5, 7, 7.5, 8]);
+lineChart(document.querySelector('[data-chart="refund"]'), D.refund, "Seattle, WA", v => v.toFixed(1) + "%", [1, 2, 3, 4]);
+promoChart(document.querySelector('[data-chart="promo"]'));
+attChart(document.querySelector('[data-chart="att"]'));
+</script>
+</body>
+</html>

@@ -1,0 +1,468 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>RetailIQ Attach Rates</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+
+<style>
+:root{
+  color-scheme: light;
+  --paper:#f2f3f4; --panel:#ffffff; --panel-2:#fafbfb; --console:#f7f8f8;
+  --ink:#14161a; --ink-2:#3c434b; --muted:#646c76;
+  --rule:#d7dade; --rule-soft:#e6e8ea;
+  --focus:#eb6834; --focus-ink:#a8390f;
+  --ctx:#a4abb3; --grid:#e6e8ea;
+  --kw:#2a78d6; --str:#1a7f5a;
+  --serif:"Newsreader",Georgia,"Times New Roman",serif;
+  --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme: dark;
+    --paper:#111317; --panel:#181b20; --panel-2:#1d2126; --console:#15181c;
+    --ink:#eef0f2; --ink-2:#c3c8ce; --muted:#949ba4;
+    --rule:#2b3038; --rule-soft:#23272d;
+    --focus:#f07c4c; --focus-ink:#f6a683;
+    --ctx:#6e767f; --grid:#262b32;
+    --kw:#6fa8ec; --str:#4dbd92;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme: dark;
+  --paper:#111317; --panel:#181b20; --panel-2:#1d2126; --console:#15181c;
+  --ink:#eef0f2; --ink-2:#c3c8ce; --muted:#949ba4;
+  --rule:#2b3038; --rule-soft:#23272d;
+  --focus:#f07c4c; --focus-ink:#f6a683;
+  --ctx:#6e767f; --grid:#262b32;
+  --kw:#6fa8ec; --str:#4dbd92;
+}
+
+*{box-sizing:border-box}
+body{margin:0; background:var(--paper); color:var(--ink);
+  font-family:var(--serif); font-size:17px; line-height:1.62; -webkit-font-smoothing:antialiased}
+.wrap{max-width:980px; margin:0 auto; padding-inline:20px; padding-block:0 72px}
+
+.bar{position:sticky; top:env(safe-area-inset-top,0px); z-index:20;
+  background:color-mix(in srgb, var(--paper) 90%, transparent); backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--rule)}
+.bar-in{max-width:980px; margin:0 auto; padding:10px 20px; display:flex; gap:14px;
+  align-items:center; justify-content:space-between; flex-wrap:wrap}
+.bar-name{font-family:var(--mono); font-size:12px; letter-spacing:.09em; text-transform:uppercase}
+.bar-name span{color:var(--muted)}
+.chip{font-family:var(--mono); font-size:10.5px; letter-spacing:.06em; text-transform:uppercase;
+  border:1px solid var(--rule); color:var(--muted); padding:4px 9px; border-radius:2px; background:var(--panel-2)}
+
+header.head{padding-block:56px 34px; border-bottom:1px solid var(--rule)}
+.eyebrow{font-family:var(--mono); font-size:11px; letter-spacing:.14em; text-transform:uppercase;
+  color:var(--muted); margin:0 0 18px}
+h1{font-family:var(--serif); font-weight:500; font-size:clamp(34px,6vw,54px); line-height:1.06;
+  letter-spacing:-.018em; margin:0 0 18px; text-wrap:balance; max-width:20ch}
+.standfirst{font-size:20px; line-height:1.55; color:var(--ink-2); max-width:62ch; margin:0}
+.disclosure{margin-top:26px; padding:13px 16px; border:1px solid var(--rule); border-left:3px solid var(--focus);
+  background:var(--panel-2); border-radius:2px; font-family:var(--mono); font-size:12.5px; line-height:1.6; color:var(--ink-2)}
+
+.figs{display:grid; grid-template-columns:repeat(auto-fit,minmax(130px,1fr)); gap:1px;
+  background:var(--rule); border:1px solid var(--rule); margin:34px 0 8px; border-radius:2px; overflow:hidden}
+.fig{background:var(--panel); padding:15px 16px}
+.fig dt{font-family:var(--mono); font-size:10.5px; letter-spacing:.07em; text-transform:uppercase; color:var(--muted); margin:0 0 6px}
+.fig dd{margin:0; font-family:var(--mono); font-weight:600; font-size:21px; font-variant-numeric:tabular-nums; letter-spacing:-.02em}
+.figs-note{font-family:var(--mono); font-size:11px; color:var(--muted); margin:0 0 44px}
+
+section{padding-block:40px; border-bottom:1px solid var(--rule-soft)}
+section:last-of-type{border-bottom:0}
+h2{font-family:var(--mono); font-size:11.5px; font-weight:600; letter-spacing:.14em;
+  text-transform:uppercase; color:var(--muted); margin:0 0 20px}
+p{max-width:66ch; margin:0 0 17px}
+.lead{font-size:18.5px}
+
+.finding{padding-block:46px; border-bottom:1px solid var(--rule-soft)}
+.f-head{display:flex; gap:16px; align-items:baseline; margin-bottom:6px}
+.f-tag{font-family:var(--mono); font-size:12px; font-weight:600; letter-spacing:.08em; color:var(--focus-ink); flex:none; padding-top:6px}
+h3{font-family:var(--serif); font-weight:500; font-size:clamp(23px,3.4vw,30px); line-height:1.2;
+  letter-spacing:-.012em; margin:0; text-wrap:balance; max-width:26ch}
+.f-body{margin-left:0}
+@media(min-width:680px){ .f-body{margin-left:44px} }
+
+.rec{margin-top:22px; padding:15px 18px; background:var(--panel); border:1px solid var(--rule); border-radius:2px; max-width:68ch}
+.rec b{display:block; font-family:var(--mono); font-size:10.5px; letter-spacing:.1em;
+  text-transform:uppercase; color:var(--muted); font-weight:600; margin-bottom:7px}
+.rec p{margin:0; font-size:16.5px; max-width:none}
+
+figure{margin:26px 0 0; background:var(--panel); border:1px solid var(--rule); border-radius:2px; overflow:hidden}
+figcaption{padding:13px 16px 0; font-family:var(--mono); font-size:11.5px; color:var(--ink-2); line-height:1.5}
+figcaption em{color:var(--muted); font-style:normal}
+.chart{padding:6px 10px 12px}
+.chart svg{display:block; width:100%; height:auto; overflow:visible}
+
+/* ---------- SQL console ---------- */
+.console{border:1px solid var(--rule); border-radius:2px; background:var(--panel); overflow:hidden; margin-top:8px}
+.c-head{display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap;
+  padding:11px 14px; border-bottom:1px solid var(--rule); background:var(--panel-2)}
+.c-title{font-family:var(--mono); font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-2)}
+.c-status{font-family:var(--mono); font-size:10.5px; color:var(--muted)}
+.c-status.live{color:var(--str)}
+.c-dot{display:inline-block; width:6px; height:6px; border-radius:50%; background:var(--ctx); margin-right:6px; vertical-align:middle}
+.c-status.live .c-dot{background:var(--str)}
+
+.qtabs{display:flex; gap:0; overflow-x:auto; border-bottom:1px solid var(--rule); background:var(--panel-2)}
+.qtabs button{appearance:none; border:0; background:none; cursor:pointer; flex:none;
+  font-family:var(--mono); font-size:11px; letter-spacing:.05em; color:var(--muted);
+  padding:9px 13px; border-bottom:2px solid transparent}
+.qtabs button:hover{color:var(--ink)}
+.qtabs button[aria-selected="true"]{color:var(--focus-ink); border-bottom-color:var(--focus); background:var(--panel)}
+.qtabs button:focus-visible{outline:2px solid var(--focus); outline-offset:-2px}
+
+.qmeta{padding:13px 16px 0; font-family:var(--mono); font-size:11.5px; color:var(--ink-2)}
+.qmeta span{color:var(--muted)}
+.editor{margin:10px 16px 0; border:1px solid var(--rule); border-radius:2px; background:var(--console)}
+textarea{width:100%; border:0; background:none; color:var(--ink); resize:vertical;
+  font-family:var(--mono); font-size:12.5px; line-height:1.65; padding:12px 13px; min-height:180px; display:block}
+textarea:focus{outline:2px solid var(--focus); outline-offset:-2px}
+.c-actions{display:flex; gap:10px; align-items:center; flex-wrap:wrap; padding:11px 16px 13px}
+.btn{appearance:none; cursor:pointer; font-family:var(--mono); font-size:11px; letter-spacing:.07em;
+  text-transform:uppercase; padding:8px 15px; border-radius:2px; border:1px solid var(--focus);
+  background:var(--focus); color:#fff; font-weight:600}
+.btn[disabled]{opacity:.45; cursor:not-allowed}
+.btn.ghost{background:none; color:var(--ink-2); border-color:var(--rule)}
+.runinfo{font-family:var(--mono); font-size:11px; color:var(--muted); font-variant-numeric:tabular-nums}
+.runinfo.err{color:var(--focus-ink)}
+
+.results{border-top:1px solid var(--rule-soft); max-height:390px; overflow:auto}
+table{border-collapse:collapse; width:100%; font-family:var(--mono); font-size:11.5px; font-variant-numeric:tabular-nums}
+th,td{padding:6px 12px; text-align:right; white-space:nowrap; border-bottom:1px solid var(--rule-soft)}
+th:first-child,td:first-child{text-align:left}
+thead th{position:sticky; top:0; background:var(--panel-2); color:var(--muted); font-weight:500;
+  letter-spacing:.04em; border-bottom:1px solid var(--rule); z-index:1}
+tbody tr:hover td{background:var(--panel-2)}
+
+.schema{display:grid; grid-template-columns:repeat(auto-fit,minmax(168px,1fr)); gap:1px;
+  background:var(--rule); border-top:1px solid var(--rule)}
+.tbl{background:var(--panel); padding:11px 13px}
+.tbl b{display:block; font-family:var(--mono); font-size:11px; letter-spacing:.06em; color:var(--focus-ink); margin-bottom:5px}
+.tbl code{display:block; font-family:var(--mono); font-size:10.5px; color:var(--muted); line-height:1.75}
+
+ol.checks{counter-reset:c; list-style:none; padding:0; margin:0; max-width:68ch}
+ol.checks li{counter-increment:c; position:relative; padding-left:34px; margin-bottom:15px; font-size:16.5px}
+ol.checks li::before{content:counter(c,decimal-leading-zero); position:absolute; left:0; top:3px;
+  font-family:var(--mono); font-size:11px; color:var(--muted)}
+dl.meta{display:grid; grid-template-columns:auto 1fr; gap:8px 22px; margin:0; max-width:68ch; align-items:baseline}
+dl.meta dt{font-family:var(--mono); font-size:11px; letter-spacing:.06em; text-transform:uppercase; color:var(--muted)}
+dl.meta dd{margin:0; font-family:var(--mono); font-size:13px; color:var(--ink-2); line-height:1.6}
+
+footer{padding-block:38px; border-top:1px solid var(--rule); font-family:var(--mono); font-size:12.5px; color:var(--muted)}
+footer a{color:var(--ink); text-decoration:none; border-bottom:1px solid var(--rule)}
+footer a:hover{border-color:var(--focus)}
+.foot-row{display:flex; gap:26px; flex-wrap:wrap; align-items:baseline}
+@media (prefers-reduced-motion: reduce){ *{transition:none!important} }
+</style>
+<style>
+:root{padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px)}
+img{max-width:100%}
+[hidden]{display:none!important}
+</style>
+</head>
+<body>
+<div class="bar"><div class="bar-in">
+  <div class="bar-name">Mehak Saini <span>/ Case study 02</span></div>
+  <div class="chip">Simulated data · Live SQL</div>
+</div></div>
+
+<div class="wrap">
+
+<header class="head">
+  <p class="eyebrow">SQL analytics · 5,148 transactions · 6 stores · Nov 2025</p>
+  <h1>The customer segment wasn't the answer. The rep was.</h1>
+  <p class="standfirst">Accessory attachment looked like a customer-demographics problem. It isn't — age band explains almost nothing. The gap sits between two reps standing in the same store selling to the same people, and it is worth about $223,000 a year.</p>
+  <div class="disclosure">
+    <strong>Simulated data, real SQL.</strong> A PostgreSQL database I designed and populated to model a multi-store wireless retailer. The data is generated for portfolio use. Every query below runs in your browser against that database — edit one and run it yourself.
+  </div>
+</header>
+
+<dl class="figs">
+  <div class="fig"><dt>Transactions</dt><dd>5,148</dd></div>
+  <div class="fig"><dt>Stores</dt><dd>6</dd></div>
+  <div class="fig"><dt>Reps</dt><dd>8</dd></div>
+  <div class="fig"><dt>Customers</dt><dd>900</dd></div>
+  <div class="fig"><dt>Attach rate</dt><dd>49.6%</dd></div>
+  <div class="fig"><dt>Opportunity</dt><dd>$223K</dd></div>
+</dl>
+<p class="figs-note">5-table normalised schema · 10 analytical queries · CTEs, RANK, ROW_NUMBER, LAG, NTILE, running totals</p>
+
+<section>
+  <h2>The question</h2>
+  <p class="lead">Half of all transactions attach an accessory. The other half don't, and each missed attach is about $72.50 of pure add-on revenue walking out of the store. So the question is simply: <em>what separates the two halves?</em></p>
+  <p>The instinctive answer in retail is the customer — younger buyers take cases and chargers, older ones don't. That is testable, so I tested it first, and then kept going when it turned out to be wrong.</p>
+</section>
+
+<section>
+  <h2>Run the queries yourself</h2>
+  <p>The whole database loads in your browser. Pick a query, edit it, run it. These are the ten queries from the repository, unchanged except for two dialect fixes noted at the bottom of the page.</p>
+
+  <div class="console">
+    <div class="c-head">
+      <div class="c-title">retailiq · sqlite</div>
+      <div class="c-status" id="cstatus"><span class="c-dot"></span>loading database…</div>
+    </div>
+    <div class="qtabs" id="qtabs" role="tablist"></div>
+    <div class="qmeta" id="qmeta"></div>
+    <div class="editor"><textarea id="sqlbox" spellcheck="false" aria-label="SQL query editor"></textarea></div>
+    <div class="c-actions">
+      <button class="btn" id="run" disabled>Run query</button>
+      <button class="btn ghost" id="reset">Reset</button>
+      <span class="runinfo" id="runinfo"></span>
+    </div>
+    <div class="results" id="results"></div>
+    <div class="schema" id="schema"></div>
+  </div>
+</section>
+
+<section>
+  <h2>What I found</h2>
+  <p class="lead">Three findings and one refusal to ship a number.</p>
+</section>
+
+<!-- F1 -->
+<div class="finding">
+  <div class="f-head"><div class="f-tag">F1</div>
+    <h3>Age band explains almost nothing</h3></div>
+  <div class="f-body">
+    <p>Across 5,148 transactions the four age bands attach accessories at <strong>50.5%, 49.9%, 48.5% and 47.7%</strong>. The entire spread is 2.8 percentage points, and it runs in the intuitive direction so weakly that it would not survive a significance test on smaller samples. Average device price is flat too — $461 to $475 across all four bands.</p>
+    <p>This is the finding that stops a bad project. Had I reported the ordering without the spread, "26–40 year-olds attach most" would have become a targeting rule, and the business would have spent real money segmenting a population that behaves identically.</p>
+    <figure>
+      <figcaption><strong>Accessory attach rate by customer age band</strong><br><em>Four bands, 2.8 points of spread. Company average shown as the reference line.</em></figcaption>
+      <div class="chart" data-chart="age"></div>
+    </figure>
+    <div class="rec"><b>Recommendation</b>
+      <p>Do not build customer-level targeting on age. Report the spread, not the ranking, and redirect the analysis to where the variance actually lives.</p>
+    </div>
+  </div>
+</div>
+
+<!-- F2 -->
+<div class="finding">
+  <div class="f-head"><div class="f-tag">F2</div>
+    <h3>Two reps in one store are 7.9 points apart</h3></div>
+  <div class="f-body">
+    <p>In Store A, Jasmine attaches on <strong>54.5%</strong> of her 486 sales. Carlos, in the same store, on the same catalogue, to the same customer base, attaches on <strong>46.6%</strong> of his 451. Store B shows the same shape: Tina 50.9%, Marcus 47.8%. The rep-level spread across the company runs from 44.9% to 54.5% — nearly ten points, against 2.8 for age.</p>
+    <p>Sizing it: if every rep reached Jasmine's rate, the company adds <strong>256 attaches a month</strong>. At the observed $72.50 average accessory sale that is <strong>$18,563 a month, or $222,751 a year</strong>. The conservative version — lifting only below-average reps to the company average of 49.6% — is still <strong>$49,643 a year</strong>, and that one requires no one to become exceptional.</p>
+    <figure>
+      <figcaption><strong>Accessory attach rate by rep, grouped by store</strong><br><em>The two-rep stores are the clean comparison: same store, same customers, different results.</em></figcaption>
+      <div class="chart" data-chart="reps"></div>
+    </figure>
+    <div class="rec"><b>Recommendation</b>
+      <p>Pair Carlos with Jasmine and Marcus with Tina for two weeks of side-by-side selling, and re-measure at 30 days. The intervention is free, the comparison is already controlled for store and customer mix, and the floor case pays for itself several times over. Track attach rate per rep on the weekly scorecard, not per store — the store average hides exactly the gap worth closing.</p>
+    </div>
+  </div>
+</div>
+
+<!-- F3 -->
+<div class="finding">
+  <div class="f-head"><div class="f-tag">F3</div>
+    <h3>Insurance is a store problem, not a rep problem</h3></div>
+  <div class="f-body">
+    <p>Insurance attachment splits differently. Store E reaches <strong>44.2%</strong> and Store A <strong>42.4%</strong>, while Store B sits at <strong>33.9%</strong> — a 10.3-point spread, wider than the accessory gap and clustered by store rather than by individual. Store A's two reps differ by 7.9 points on accessories but sit together near the top on insurance.</p>
+    <p>That pattern points at something the store shares and the rep doesn't: how the offer is scripted at point of sale, or what the manager inspects. Home internet tells the same story from the other end — 12.5% attachment company-wide, low enough that it is a product-positioning question rather than a coaching one.</p>
+    <div class="rec"><b>Recommendation</b>
+      <p>Treat insurance and accessories as two separate coaching programmes. Accessories are a rep-skill gap and respond to pairing; insurance is a process gap and needs the Store E and Store A scripts documented and rolled out to Store B, C and F.</p>
+    </div>
+  </div>
+</div>
+
+<!-- F4 -->
+<div class="finding">
+  <div class="f-head"><div class="f-tag">F4</div>
+    <h3>One query returns a number I won't report</h3></div>
+  <div class="f-body">
+    <p>The pace-to-goal query (Q5) is written correctly and returns nonsense: every store lands between <strong>207% and 533% of goal</strong>. Store F comes out at 533%. No retailer beats plan by five times and calls it a plan.</p>
+    <p>The cause is a definition mismatch, not a bug. The six stores carry monthly goals totalling <strong>1,615</strong>, while the sales table holds <strong>5,148</strong> rows for the same month. <code>monthly_goal</code> is an activation target — new lines — and <code>sales</code> counts every transaction, including upgrades, accessory-only tickets and add-ons. Dividing one by the other is arithmetic, not measurement.</p>
+    <p>Run Q5 in the console above and you will see it. I left the query in the repository because the SQL is right and the pattern is reusable; what I won't do is put 533% on a slide.</p>
+    <div class="rec"><b>Recommendation</b>
+      <p>Before this metric ships, define the numerator to match the target: filter <code>sales</code> to new activations, or carry a separate transaction target alongside the activation goal. Until then the pace-to-goal view should be marked not-reportable rather than quietly rescaled to look sensible.</p>
+    </div>
+  </div>
+</div>
+
+<section>
+  <h2>One more caveat on Q9</h2>
+  <p>The revenue-quartile query ranks Sofia, Priya, Andre and Devon in the top half and the four reps from the two-rep stores in the bottom half. That ordering is mostly staffing, not skill: a sole rep in Store C handles all 854 of its sales, while Store A's volume is split between two people. Revenue per rep is not a performance measure when staffing differs by store. Attach rate is, which is why F2 uses it.</p>
+</section>
+
+<section>
+  <h2>What I'd validate first with real data</h2>
+  <ol class="checks">
+    <li>Whether Jasmine's advantage is technique or traffic. Same store does not guarantee same shift — a weekend rep sees a different customer than a Tuesday-morning rep. Shift-level data would settle it, and it is the one thing that could overturn F2.</li>
+    <li>Whether the accessory margin holds at $72.50 across categories. The opportunity is sized on revenue; the decision should be made on margin.</li>
+    <li>What Store E and Store A actually do differently on insurance. The data shows the gap and cannot show the cause.</li>
+    <li>How <code>monthly_goal</code> is defined in the source system, which turns Q5 from broken into usable.</li>
+  </ol>
+</section>
+
+<section>
+  <h2>Method</h2>
+  <dl class="meta">
+    <dt>Schema</dt><dd>5 normalised tables — stores, employees, customers, plans, sales — with primary and foreign keys and three indexes on the fact table</dd>
+    <dt>Volume</dt><dd>5,148 sales · 900 customers · 8 reps · 6 stores · 4 plans · November 2025</dd>
+    <dt>SQL</dt><dd>CTEs, RANK and ROW_NUMBER with PARTITION BY, LAG for day-over-day, NTILE for quartiles, unbounded-preceding running totals, conditional aggregation</dd>
+    <dt>Dialect</dt><dd>The repository is PostgreSQL. The browser console runs SQLite, so two lines differ: <code>::NUMERIC</code> becomes <code>CAST(… AS REAL)</code> in Q5, and <code>DATE_TRUNC('week', …)</code> becomes <code>date(…, 'weekday 1', '-7 days')</code> in Q10. Everything else is identical.</dd>
+    <dt>Checks</dt><dd>Store totals reconcile to the transaction count; rep revenue sums to company revenue; every figure on this page was recomputed from the database rather than carried from an earlier report</dd>
+  </dl>
+</section>
+
+<footer>
+  <div class="foot-row">
+    <span>Mehak Saini — FP&amp;A &amp; Business Operations Analyst</span>
+    <a href="https://github.com/mehaksaini0419/retailiq-sql-analytics">Repository</a>
+    <a href="https://www.linkedin.com/in/mehaksaini04">LinkedIn</a>
+    <span>msaini0419@outlook.com</span>
+  </div>
+</footer>
+
+</div>
+
+<script>
+const Q = [{"id":"Q1","title":"STORE SCORECARD","tech":"JOIN + GROUP BY + aggregate rates","desc":"Which stores convert best and attach the most add-ons?","sql":"SELECT\n    s.store_name,\n    s.region,\n    COUNT(*)                                            AS total_sales,\n    ROUND(AVG(CASE WHEN sa.accessory_attach THEN 1 ELSE 0 END) * 100, 1) AS accessory_attach_pct,\n    ROUND(AVG(CASE WHEN sa.insurance_attach THEN 1 ELSE 0 END) * 100, 1) AS insurance_attach_pct,\n    SUM(sa.voice_lines)                                 AS total_voice_lines,\n    ROUND(SUM(p.monthly_revenue + sa.accessory_revenue), 2) AS total_revenue\nFROM sales sa\nJOIN stores s   ON sa.store_id = s.store_id\nJOIN plans  p   ON sa.plan_id  = p.plan_id\nGROUP BY s.store_name, s.region\nORDER BY total_revenue DESC;","cols":["store_name","region","total_sales","accessory_attach_pct","insurance_attach_pct","total_voice_lines","total_revenue"],"rows":[["Store A","Northeast",937,50.7,42.4,1205,88761.51],["Store E","West",908,51.8,44.2,1166,86922.64],["Store B","Northeast",892,49.3,33.9,1114,83689.07],["Store C","Midwest",854,50.0,34.4,1066,80983.87],["Store F","West",799,49.9,35.0,968,73644.28],["Store D","Midwest",758,44.9,35.5,924,68809.87]],"n":6},{"id":"Q2","title":"REP RANKING WITHIN EACH STORE","tech":"WINDOW: RANK + PARTITION","desc":"Rank each rep against their own store's peers by attach rate.","sql":"WITH rep_stats AS (\n    SELECT\n        e.employee_name,\n        st.store_name,\n        COUNT(*) AS sales_count,\n        ROUND(AVG(CASE WHEN sa.accessory_attach THEN 1 ELSE 0 END) * 100, 1) AS attach_pct\n    FROM sales sa\n    JOIN employees e ON sa.employee_id = e.employee_id\n    JOIN stores st   ON e.store_id     = st.store_id\n    GROUP BY e.employee_name, st.store_name\n)\nSELECT\n    store_name,\n    employee_name,\n    sales_count,\n    attach_pct,\n    RANK() OVER (PARTITION BY store_name ORDER BY attach_pct DESC) AS rank_in_store\nFROM rep_stats\nORDER BY store_name, rank_in_store;","cols":["store_name","employee_name","sales_count","attach_pct","rank_in_store"],"rows":[["Store A","Jasmine",486,54.5,1],["Store A","Carlos",451,46.6,2],["Store B","Tina",436,50.9,1],["Store B","Marcus",456,47.8,2],["Store C","Priya",854,50.0,1],["Store D","Devon",758,44.9,1],["Store E","Sofia",908,51.8,1],["Store F","Andre",799,49.9,1]],"n":8},{"id":"Q3","title":"DAILY RUNNING TOTAL OF SALES","tech":"WINDOW: SUM OVER ... rows","desc":"Cumulative company-wide sales across the month.","sql":"WITH daily AS (\n    SELECT sale_date, COUNT(*) AS daily_sales\n    FROM sales\n    GROUP BY sale_date\n)\nSELECT\n    sale_date,\n    daily_sales,\n    SUM(daily_sales) OVER (ORDER BY sale_date\n                           ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) AS running_total\nFROM daily\nORDER BY sale_date;","cols":["sale_date","daily_sales","running_total"],"rows":[["2025-11-01",167,167],["2025-11-02",171,338],["2025-11-03",165,503],["2025-11-04",164,667],["2025-11-05",165,832],["2025-11-06",170,1002],["2025-11-07",214,1216],["2025-11-08",169,1385],["2025-11-09",172,1557],["2025-11-10",163,1720],["2025-11-11",225,1945],["2025-11-12",182,2127],["2025-11-13",141,2268],["2025-11-14",196,2464],["2025-11-15",178,2642],["2025-11-16",168,2810],["2025-11-17",161,2971],["2025-11-18",180,3151],["2025-11-19",198,3349],["2025-11-20",153,3502],["2025-11-21",174,3676],["2025-11-22",150,3826],["2025-11-23",151,3977],["2025-11-24",163,4140],["2025-11-25",178,4318],["2025-11-26",171,4489],["2025-11-27",181,4670],["2025-11-28",143,4813],["2025-11-29",170,4983],["2025-11-30",165,5148]],"n":30},{"id":"Q4","title":"DAY-OVER-DAY GROWTH","tech":"WINDOW: LAG","desc":"How did each day compare to the day before?","sql":"WITH daily AS (\n    SELECT sale_date, COUNT(*) AS daily_sales\n    FROM sales\n    GROUP BY sale_date\n)\nSELECT\n    sale_date,\n    daily_sales,\n    LAG(daily_sales) OVER (ORDER BY sale_date) AS prev_day_sales,\n    daily_sales - LAG(daily_sales) OVER (ORDER BY sale_date) AS change_vs_prev,\n    ROUND(\n        100.0 * (daily_sales - LAG(daily_sales) OVER (ORDER BY sale_date))\n        / NULLIF(LAG(daily_sales) OVER (ORDER BY sale_date), 0), 1\n    ) AS pct_change\nFROM daily\nORDER BY sale_date;","cols":["sale_date","daily_sales","prev_day_sales","change_vs_prev","pct_change"],"rows":[["2025-11-01",167,null,null,null],["2025-11-02",171,167,4,2.4],["2025-11-03",165,171,-6,-3.5],["2025-11-04",164,165,-1,-0.6],["2025-11-05",165,164,1,0.6],["2025-11-06",170,165,5,3.0],["2025-11-07",214,170,44,25.9],["2025-11-08",169,214,-45,-21.0],["2025-11-09",172,169,3,1.8],["2025-11-10",163,172,-9,-5.2],["2025-11-11",225,163,62,38.0],["2025-11-12",182,225,-43,-19.1],["2025-11-13",141,182,-41,-22.5],["2025-11-14",196,141,55,39.0],["2025-11-15",178,196,-18,-9.2],["2025-11-16",168,178,-10,-5.6],["2025-11-17",161,168,-7,-4.2],["2025-11-18",180,161,19,11.8],["2025-11-19",198,180,18,10.0],["2025-11-20",153,198,-45,-22.7],["2025-11-21",174,153,21,13.7],["2025-11-22",150,174,-24,-13.8],["2025-11-23",151,150,1,0.7],["2025-11-24",163,151,12,7.9],["2025-11-25",178,163,15,9.2],["2025-11-26",171,178,-7,-3.9],["2025-11-27",181,171,10,5.8],["2025-11-28",143,181,-38,-21.0],["2025-11-29",170,143,27,18.9],["2025-11-30",165,170,-5,-2.9]],"n":30},{"id":"Q5","title":"PACE-TO-GOAL","tech":"CTE + JOIN to goals","desc":"Project month-end activations vs each store's target.","sql":"WITH store_actuals AS (\n    SELECT store_id, COUNT(*) AS sales_so_far,\n           COUNT(DISTINCT sale_date) AS days_active\n    FROM sales\n    GROUP BY store_id\n)\nSELECT\n    st.store_name,\n    st.monthly_goal,\n    a.sales_so_far,\n    ROUND(CAST(a.sales_so_far AS REAL) / a.days_active * 30) AS projected_month_end,\n    ROUND(100.0 * (CAST(a.sales_so_far AS REAL) / a.days_active * 30) / st.monthly_goal, 1) AS pct_of_goal,\n    CASE WHEN (CAST(a.sales_so_far AS REAL) / a.days_active * 30) >= st.monthly_goal\n         THEN 'On track' ELSE 'Behind' END AS status\nFROM store_actuals a\nJOIN stores st ON a.store_id = st.store_id\nORDER BY pct_of_goal DESC;","cols":["store_name","monthly_goal","sales_so_far","projected_month_end","pct_of_goal","status"],"rows":[["Store F",150,799,799.0,532.7,"On track"],["Store D",175,758,758.0,433.1,"On track"],["Store C",230,854,854.0,371.3,"On track"],["Store E",290,908,908.0,313.1,"On track"],["Store A",340,937,937.0,275.6,"On track"],["Store B",430,892,892.0,207.4,"On track"]],"n":6},{"id":"Q6","title":"PLAN MIX & MAGENTA MIGRATION RATE","tech":"conditional aggregation","desc":"What share of sales are T-Mobile postpaid migrations?","sql":"SELECT\n    p.plan_name,\n    COUNT(*) AS units_sold,\n    ROUND(100.0 * COUNT(*) / SUM(COUNT(*)) OVER (), 1) AS pct_of_all_sales,\n    ROUND(SUM(p.monthly_revenue), 2) AS recurring_revenue\nFROM sales sa\nJOIN plans p ON sa.plan_id = p.plan_id\nGROUP BY p.plan_name, p.is_magenta\nORDER BY units_sold DESC;","cols":["plan_name","units_sold","pct_of_all_sales","recurring_revenue"],"rows":[["Metro $40",2023,39.3,80920.0],["Metro Unlimited",1672,32.5,100320.0],["Magenta",943,18.3,70725.0],["Magenta MAX",510,9.9,45900.0]],"n":4},{"id":"Q7","title":"TOP REVENUE DAY PER STORE","tech":"WINDOW: ROW_NUMBER, \"top-N per group\"","desc":"Each store's single best sales day.","sql":"WITH store_day AS (\n    SELECT\n        st.store_name,\n        sa.sale_date,\n        ROUND(SUM(p.monthly_revenue + sa.accessory_revenue), 2) AS day_revenue\n    FROM sales sa\n    JOIN stores st ON sa.store_id = st.store_id\n    JOIN plans  p  ON sa.plan_id  = p.plan_id\n    GROUP BY st.store_name, sa.sale_date\n),\nranked AS (\n    SELECT *,\n           ROW_NUMBER() OVER (PARTITION BY store_name ORDER BY day_revenue DESC) AS rn\n    FROM store_day\n)\nSELECT store_name, sale_date, day_revenue\nFROM ranked\nWHERE rn = 1\nORDER BY day_revenue DESC;","cols":["store_name","sale_date","day_revenue"],"rows":[["Store A","2025-11-09",4712.43],["Store C","2025-11-19",4619.38],["Store E","2025-11-07",4422.7],["Store B","2025-11-11",4261.45],["Store F","2025-11-08",3627.42],["Store D","2025-11-27",3422.94]],"n":6},{"id":"Q8","title":"ATTACH RATE BY CUSTOMER AGE BAND","tech":"JOIN to customers","desc":"Which age groups buy the most accessories? (validates the ML finding)","sql":"SELECT\n    c.age_band,\n    COUNT(*) AS sales,\n    ROUND(AVG(CASE WHEN sa.accessory_attach THEN 1 ELSE 0 END) * 100, 1) AS accessory_attach_pct,\n    ROUND(AVG(sa.device_price), 0) AS avg_device_price\nFROM sales sa\nJOIN customers c ON sa.customer_id = c.customer_id\nGROUP BY c.age_band\nORDER BY accessory_attach_pct DESC;","cols":["age_band","sales","accessory_attach_pct","avg_device_price"],"rows":[["26-40",1716,50.5,472.0],["18-25",1576,49.9,475.0],["41-60",1393,48.5,461.0],["60+",463,47.7,465.0]],"n":4},{"id":"Q9","title":"REVENUE CONTRIBUTION & PERCENTILE","tech":"WINDOW: NTILE, % of total","desc":"Bucket reps into quartiles by revenue generated.","sql":"WITH rep_rev AS (\n    SELECT\n        e.employee_name,\n        ROUND(SUM(p.monthly_revenue + sa.accessory_revenue), 2) AS revenue\n    FROM sales sa\n    JOIN employees e ON sa.employee_id = e.employee_id\n    JOIN plans p     ON sa.plan_id     = p.plan_id\n    GROUP BY e.employee_name\n)\nSELECT\n    employee_name,\n    revenue,\n    ROUND(100.0 * revenue / SUM(revenue) OVER (), 1) AS pct_of_total_revenue,\n    NTILE(4) OVER (ORDER BY revenue DESC) AS revenue_quartile\nFROM rep_rev\nORDER BY revenue DESC;","cols":["employee_name","revenue","pct_of_total_revenue","revenue_quartile"],"rows":[["Sofia",86922.64,18.0,1],["Priya",80983.87,16.8,1],["Andre",73644.28,15.3,2],["Devon",68809.87,14.3,2],["Jasmine",46981.98,9.7,3],["Marcus",42704.99,8.8,3],["Carlos",41779.53,8.7,4],["Tina",40984.08,8.5,4]],"n":8},{"id":"Q10","title":"NEW-CUSTOMER COHORT BY SIGNUP WEEK","tech":"CTE + date functions","desc":"How many customers signed up each week, and their attach behavior?","sql":"WITH cust_first AS (\n    SELECT\n        c.customer_id,\n        date(c.signup_date, 'weekday 1', '-7 days') AS signup_week\n    FROM customers c\n)\nSELECT\n    cf.signup_week,\n    COUNT(DISTINCT cf.customer_id) AS new_customers,\n    COUNT(sa.sale_id)              AS sales_from_cohort,\n    ROUND(AVG(CASE WHEN sa.accessory_attach THEN 1 ELSE 0 END) * 100, 1) AS attach_pct\nFROM cust_first cf\nLEFT JOIN sales sa ON sa.customer_id = cf.customer_id\nGROUP BY cf.signup_week\nORDER BY cf.signup_week;","cols":["signup_week","new_customers","sales_from_cohort","attach_pct"],"rows":[["2025-10-27",88,492,46.5],["2025-11-03",195,1136,50.5],["2025-11-10",203,1205,49.6],["2025-11-17",230,1300,48.8],["2025-11-24",184,1015,50.6]],"n":5}];
+const SVGNS="http://www.w3.org/2000/svg";
+const el=(n,a)=>{const e=document.createElementNS(SVGNS,n);for(const k in a)e.setAttribute(k,a[k]);return e;};
+const css=v=>getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+
+/* ================= charts ================= */
+function barChart(host, rows, opts){
+  const W=860, rowH=opts.rowH||34, top=10, H=top+rows.length*rowH+30;
+  const labW=opts.labW||150, valW=58, barW=W-labW-valW;
+  const max=opts.max;
+  const svg=el("svg",{viewBox:`0 0 ${W} ${H}`,role:"img","aria-label":opts.label});
+  rows.forEach((r,i)=>{
+    const y=top+i*rowH, hot=r.hot;
+    const lab=el("text",{x:0,y:y+16,fill:hot?css("--focus-ink"):css("--ink-2"),
+      "font-family":"IBM Plex Mono, monospace","font-size":12,"font-weight":hot?600:400});
+    lab.textContent=r.label; svg.appendChild(lab);
+    if(r.sub){
+      const s=el("text",{x:0,y:y+29,fill:css("--muted"),"font-family":"IBM Plex Mono, monospace","font-size":10});
+      s.textContent=r.sub; svg.appendChild(s);
+    }
+    const w=Math.max(2,r.value/max*barW);
+    svg.appendChild(el("rect",{x:labW,y:y+4,width:w,height:15,rx:3,
+      fill:hot?css("--focus"):css("--ctx"),opacity:hot?1:.6}));
+    const v=el("text",{x:labW+w+8,y:y+16,fill:hot?css("--focus-ink"):css("--ink-2"),
+      "font-family":"IBM Plex Mono, monospace","font-size":12,"font-weight":hot?600:400});
+    v.textContent=r.value.toFixed(1)+"%"; svg.appendChild(v);
+  });
+  if(opts.ref!=null){
+    const x=labW+opts.ref/max*barW;
+    svg.appendChild(el("line",{x1:x,x2:x,y1:top-2,y2:top+rows.length*rowH,
+      stroke:css("--muted"),"stroke-width":1,"stroke-dasharray":"4 3",opacity:.8}));
+    const t=el("text",{x:x,y:H-12,"text-anchor":"middle",fill:css("--muted"),
+      "font-family":"IBM Plex Mono, monospace","font-size":10.5});
+    t.textContent="company avg "+opts.ref.toFixed(1)+"%"; svg.appendChild(t);
+  }
+  host.appendChild(svg);
+}
+barChart(document.querySelector('[data-chart="age"]'),[
+  {label:"26–40",value:50.5,sub:"1,716 sales"},
+  {label:"18–25",value:49.9,sub:"1,576 sales"},
+  {label:"41–60",value:48.5,sub:"1,393 sales"},
+  {label:"60+",  value:47.7,sub:"463 sales"}
+],{max:60,ref:49.6,labW:110,label:"Accessory attach rate by customer age band"});
+
+barChart(document.querySelector('[data-chart="reps"]'),[
+  {label:"Jasmine",value:54.5,sub:"Store A · 486 sales",hot:true},
+  {label:"Carlos", value:46.6,sub:"Store A · 451 sales",hot:true},
+  {label:"Tina",   value:50.9,sub:"Store B · 436 sales"},
+  {label:"Marcus", value:47.8,sub:"Store B · 456 sales"},
+  {label:"Sofia",  value:51.8,sub:"Store E · 908 sales"},
+  {label:"Priya",  value:50.0,sub:"Store C · 854 sales"},
+  {label:"Andre",  value:49.9,sub:"Store F · 799 sales"},
+  {label:"Devon",  value:44.9,sub:"Store D · 758 sales"}
+],{max:60,ref:49.6,labW:110,label:"Accessory attach rate by sales representative"});
+
+/* ================= schema panel ================= */
+const SCHEMA=[
+  ["stores","store_id · store_name · region · monthly_goal"],
+  ["employees","employee_id · employee_name · store_id · hire_date"],
+  ["customers","customer_id · age_band · signup_date"],
+  ["plans","plan_id · plan_name · monthly_revenue · is_magenta"],
+  ["sales","sale_id · sale_date · store_id · employee_id · customer_id · plan_id · device_price · voice_lines · tablet_lines · home_internet · accessory_attach · accessory_revenue · insurance_attach"]
+];
+document.getElementById("schema").innerHTML=SCHEMA.map(([t,c])=>
+  `<div class="tbl"><b>${t}</b><code>${c}</code></div>`).join("");
+
+/* ================= console ================= */
+const tabs=document.getElementById("qtabs"), box=document.getElementById("sqlbox"),
+      meta=document.getElementById("qmeta"), out=document.getElementById("results"),
+      info=document.getElementById("runinfo"), runBtn=document.getElementById("run"),
+      resetBtn=document.getElementById("reset"), status=document.getElementById("cstatus");
+let cur=0, db=null;
+
+Q.forEach((q,i)=>{
+  const b=document.createElement("button");
+  b.textContent=q.id; b.setAttribute("role","tab"); b.setAttribute("aria-selected", i===0?"true":"false");
+  b.addEventListener("click",()=>select(i)); tabs.appendChild(b);
+});
+function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;");}
+function render(cols,rows,note){
+  out.innerHTML="<table><thead><tr>"+cols.map(c=>`<th>${esc(c)}</th>`).join("")+"</tr></thead><tbody>"+
+    rows.map(r=>"<tr>"+r.map(v=>`<td>${v===null?"—":esc(v)}</td>`).join("")+"</tr>").join("")+"</tbody></table>";
+  info.className="runinfo"; info.textContent=note;
+}
+function select(i){
+  cur=i; const q=Q[i];
+  [...tabs.children].forEach((b,j)=>b.setAttribute("aria-selected", j===i?"true":"false"));
+  meta.innerHTML=`<strong>${esc(q.title)}</strong> — ${esc(q.desc)}<br><span>${esc(q.tech)}</span>`;
+  box.value=q.sql;
+  render(q.cols,q.rows,`${q.n} rows · stored result`);
+}
+select(0);
+
+function runSQL(){
+  const sql=box.value.trim(); if(!sql||!db) return;
+  const t0=performance.now();
+  try{
+    const res=db.exec(sql);
+    const ms=(performance.now()-t0).toFixed(1);
+    if(!res.length){ out.innerHTML=""; info.className="runinfo"; info.textContent=`ok · no rows · ${ms} ms`; return; }
+    const r=res[0];
+    render(r.columns, r.values.slice(0,500).map(row=>row.map(v=>typeof v==="number"?(Number.isInteger(v)?v:Math.round(v*100)/100):v)),
+      `${r.values.length} rows · ${ms} ms${r.values.length>500?" · showing first 500":""}`);
+  }catch(e){
+    out.innerHTML=""; info.className="runinfo err"; info.textContent=String(e.message||e);
+  }
+}
+runBtn.addEventListener("click",runSQL);
+resetBtn.addEventListener("click",()=>select(cur));
+box.addEventListener("keydown",e=>{ if((e.metaKey||e.ctrlKey)&&e.key==="Enter"){e.preventDefault();runSQL();} });
+
+/* load sql.js, then the database; fall back silently to stored results */
+function loadScript(src){
+  return new Promise((ok,no)=>{ const s=document.createElement("script");
+    s.src=src; s.onload=ok; s.onerror=()=>no(new Error("blocked")); document.head.appendChild(s); });
+}
+(async()=>{
+  const V="1.10.3", base=`https://cdnjs.cloudflare.com/ajax/libs/sql.js/${V}/`;
+  try{
+    let ok=false;
+    for(const f of ["sql-asm.js","sql-wasm.js"]){
+      try{ await loadScript(base+f); if(window.initSqlJs){ ok=true; break; } }catch(_){}
+    }
+    if(!ok) throw new Error("sql.js unavailable");
+    const SQL=await window.initSqlJs({ locateFile: f => base+f });
+    const payload=await (await fetch("retailiq-db.json")).json();
+    db=new SQL.Database();
+    db.run(payload.schema); db.run(payload.data);
+    const n=db.exec("select count(*) from sales")[0].values[0][0];
+    status.className="c-status live";
+    status.innerHTML=`<span class="c-dot"></span>database loaded · ${n.toLocaleString()} rows · press ⌘/Ctrl + Enter to run`;
+    runBtn.disabled=false;
+    runSQL();
+  }catch(err){
+    status.innerHTML=`<span class="c-dot"></span>live engine unavailable here — showing stored results`;
+    box.readOnly=true; runBtn.remove();
+    resetBtn.textContent="Reload query";
+  }
+})();
+</script>
+</body>
+</html>

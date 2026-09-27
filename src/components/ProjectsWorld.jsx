@@ -4,7 +4,7 @@ import {
   BarChart, Bar, AreaChart, Area, FunnelChart, Funnel, LabelList,
   XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell, Legend,
 } from "recharts";
-import { Truck, Package, Github, Database, Cpu, ExternalLink, Sparkles, Scale } from "lucide-react";
+import { Truck, Package, Github, Database, Cpu, ExternalLink, Sparkles, Scale, FileText } from "lucide-react";
 import { Section, Modal } from "./UI";
 import { projects, charts } from "../data/content";
 
@@ -265,7 +265,7 @@ export default function ProjectsWorld() {
       <div className="grid md:grid-cols-2 gap-6">
         {projects.map((p, i) => {
           const Viz = viz[p.type]; const c = accent[p.type];
-          const badge = p.hasDashboard ? "live ↗" : p.tableau ? "tableau ↗" : p.github ? "github ↗" : "open ↗";
+          const badge = p.caseStudy ? "case study ↗" : p.hasDashboard ? "live ↗" : p.tableau ? "tableau ↗" : p.github ? "github ↗" : "open ↗";
           return (
             <motion.div key={p.id} initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }} transition={{ delay: i * 0.08 }} whileHover={{ y: -6 }}
@@ -357,10 +357,16 @@ export default function ProjectsWorld() {
               )}
               <div className="flex flex-wrap gap-2 mt-4 items-center">
                 {active.stack.map((t) => (<span key={t} className="text-xs px-2.5 py-1 rounded-lg" style={{ background: `${c}18`, border: `1px solid ${c}40` }}>{t}</span>))}
-                {active.github && (
-                  <a href={active.github} target="_blank" rel="noopener noreferrer"
+                {active.caseStudy && (
+                  <a href={active.caseStudy} target="_blank" rel="noopener noreferrer"
                     className="ml-auto flex items-center gap-2 px-5 py-2.5 rounded-full font-medium text-slate-900 hover:scale-105 transition text-sm"
                     style={{ background: `linear-gradient(90deg, ${c}, #a855f7)` }}>
+                    <FileText size={16} /> Read the case study
+                  </a>
+                )}
+                {active.github && (
+                  <a href={active.github} target="_blank" rel="noopener noreferrer"
+                    className={`${active.caseStudy ? "" : "ml-auto "}flex items-center gap-2 px-5 py-2.5 rounded-full font-medium glass hover:scale-105 transition text-sm`}>
                     <Github size={16} /> View on GitHub
                   </a>
                 )}

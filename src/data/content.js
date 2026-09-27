@@ -5,16 +5,16 @@
 
 export const profile = {
   name: "Mehak Saini",
-  role: "Business Analyst · Operations & Strategy",
+  role: "FP&A & Business Operations Analyst · Forecasting, Planning & Analytics",
   tagline: "Where business strategy meets analytics, AI, and operations excellence.",
   blurb:
-    "MBA in Management Science (STEM) turning messy operational data into decisions. I work across analytics, operations, finance, HR, marketing, sales, and supply chain — owning the full stack from SQL query to executive deck.",
-  email: "mehaksaini0419@gmail.com",
+    "Master's in Management Science (STEM) turning messy operational data into decisions. I work across analytics, operations, finance, HR, marketing, sales, and supply chain — owning the full stack from SQL query to executive deck.",
+  email: "msaini0419@outlook.com",
   phone: "(419) 565-9221",
   linkedin: "https://www.linkedin.com/in/mehaksaini04",
   github: "https://github.com/mehaksaini0419",
-  location: "Newark, NY · Open to relocation (California Bay Area, LA, San Diego, Irvine)",
-  workAuth: "F-1 STEM OPT — work-authorized in the U.S. through 2028 (E-Verify employers)",
+  location: "Newark, NY · Open to relocation (California Bay Area, LA, San Diego, Irvine, Washington DC area)",
+  workAuth: "",   // leave empty to hide the line site-wide
   voiceIntro:
     "Hi, I'm Mehak Saini. Welcome to my portfolio, where business strategy meets analytics, A.I., and operations excellence.",
 };
@@ -67,6 +67,14 @@ export const careerPaths = [
 
 // PROJECTS WORLD
 export const projects = [
+  { id: "weee", type: "bi", featured: true,
+    title: "Weee! Regional Performance — Executive Summary",
+    tagline: "4-page executive Power BI dashboard · 18 months · 6 markets",
+    stack: ["Power BI", "DAX", "Power Query", "Data Modeling"],
+    desc: "A four-page executive dashboard covering 18 months (Jan 2025 – Jun 2026) of regional performance for a grocery-delivery business across 6 markets and 8 product categories — $314M gross revenue, $83.5M gross margin, 106% plan attainment, $59 AOV, +14.3% YoY. The KPIs are table stakes; the value is the insight layer. Every page opens with a quantified finding and a recommendation: regional attainment vs. plan, delivery cost per order, category margin erosion, and a growth/retention view covering new-customer acquisition, promo dependence, refund-rate trend, and repeat-rate gaps.",
+    insight: "LA delivery cost per order is up ~30% since January while every other region stayed flat — roughly $130K/month in excess cost, annualising past $1.5M. Seattle seafood margin, already thin at ~22%, has been sliding since late 2025.",
+    impact: ["$314M revenue", "106% attainment", "$1.5M+ cost leak found", "6 markets · 8 categories"] },
+
   { id: "wireless", type: "retail", title: "Wireless Store Performance Analysis",
     tagline: "Multi-store telecom sales dashboard", stack: ["Power BI", "Excel", "DAX", "Chart.js"],
     desc: "Interactive dashboard analyzing target-vs-achieved sales across 7 store locations and 4 product lines (HSI, Magenta, Voice, Tablet) with KPI cards, drill-down, and an attainment heatmap.",
@@ -100,6 +108,26 @@ export const projects = [
     desc: "A Python analytics app that turns wireless retail sales data into manager-ready decisions, including machine-learning predictions. Trained a Random Forest model to predict accessory-attach likelihood per customer, quantified recoverable monthly revenue from coaching, and built an interactive dashboard with a live prediction tool and auto-generated business insights. Analyzes 5 core sales targets — Magenta migrations, voice lines, tablet lines, Home Internet, and insurance — across conversion, attach rates, and rep performance.",
     impact: ["Random Forest model", "Attach-rate prediction", "Recoverable revenue", "Live dashboard"],
     github: "https://github.com/mehaksaini0419/retailiq-wireless-analytics" },
+
+  { id: "apple", type: "tableau", title: "Apple Revenue & Services Growth Analysis",
+    tagline: "A decade of revenue, margin and segment mix — live in Tableau",
+    stack: ["Tableau", "Trend Analysis", "Variance Analysis"],
+    desc: "An interactive Tableau dashboard analyzing ten years of Apple's revenue, margin and segment performance, focused on the Services-segment growth story and the underlying product-mix shift. Applied trend and variance analysis and designed the visuals for a non-technical audience — the financial storytelling piece of the portfolio, built on a business context everyone already understands.",
+    impact: ["2015 – 2025", "Services growth", "Product-mix shift", "Live Tableau viz"],
+    tableau: "https://public.tableau.com/views/AppleRevenueServicesGrowthAnalysis20152026/Dashboard1" },
+
+  { id: "ecommerce", type: "ecommerce", title: "E-Commerce Customer Analytics Dashboard",
+    tagline: "Python ETL → Tableau · 5,200 transactions across 6 channels",
+    stack: ["Tableau", "Python", "pandas", "ETL"],
+    desc: "An ETL pipeline plus interactive dashboard analyzing 5,200 transactions across 6 customer segments and 6 sales channels, surfacing where revenue and repeat purchases actually concentrate. pandas handles the preparation, Tableau tells the story — a marketing- and revenue-analytics example built on a real pipeline rather than a pre-cleaned sample file.",
+    impact: ["5,200 transactions", "6 segments", "6 channels", "Live Tableau viz"],
+    tableau: "https://public.tableau.com/views/E-CommerceCustomerAnalyticsMehakSaini/Dashboard1" },
+
+  { id: "acg", type: "case", title: "ACG Cleveland Cup — Case Competition",
+    tagline: "Integrated 3-statement modeling under judged time pressure",
+    stack: ["Excel Modeling", "3-Statement Model", "Scenario Analysis"],
+    desc: "Built integrated financial models — income statement, balance sheet and cash flow — plus scenario and sensitivity analysis for a live transaction scenario, then presented data-driven recommendations to a senior judging panel under tight time constraints. Corporate-finance modeling, structured problem-solving and executive communication, graded by people who do this for a living.",
+    impact: ["3-statement model", "Scenario analysis", "Live transaction", "Ashland University · 2026"] },
 ];
 
 // VENTURE — real live website
@@ -145,43 +173,30 @@ export const strengths = [
 
 // EXPERIENCE TIMELINE
 export const experience = [
-  { role: "Business Operations Lead", company: "Digicell UPNY Inc. / Digitalk Wireless of Oregon",
+  { role: "Business Operations Lead", company: "Digicell UPNY Inc. / Digitalk Wireless",
     location: "Newark, NY (transferred from Oregon)", period: "Feb 2026 – Present",
     achievements: [
-      "Analyze sales-target performance across 7 stores and 4 product lines; surface gap-to-target to leadership.",
-      "Build Power BI and Excel reports from target-vs-achieved data; translate into operational decisions.",
-      "Coordinate multi-location inventory in RT POS — transfers, stock records, discrepancy flagging.",
-      "Manage customer account workflows in EDGE and VidaPay across cross-functional teams.",
-    ], tools: ["Power BI", "Excel", "RT POS", "EDGE", "VidaPay"] },
-  { role: "Recreational Facility Operations Manager", company: "Ashland University Recreational Services",
-    location: "Ashland, OH", period: "Dec 2024 – Dec 2025",
+      "Set and track sales targets across 7 locations and 4 product lines, reporting attainment by store, by rep and by product to regional leadership.",
+      "Own the monthly P&L view — gross revenue, adjusted revenue, cost, margin % and profitability by location and category — improving revenue-versus-profit visibility by 20%.",
+      "Build month-end forecasts from MTD run rate, seasonality, promotions, product mix and remaining selling days, improving forecast accuracy by 15%.",
+      "Build and validate KPI dashboards, Excel models, SQL checks and Power Query workflows, improving reporting accuracy by 25%.",
+      "Reconcile revenue, cost, margin, targets, returns and category mappings with finance and operations, cutting reporting discrepancies by 20% per monthly cycle.",
+      "Root-cause underperforming locations — soft categories, inventory shortages, staffing and productivity gaps — supporting 10% category opportunity recovery.",
+    ], tools: ["Power BI", "SQL", "Advanced Excel", "Power Query", "RT POS", "EDGE", "VidaPay"] },
+  { role: "Business Analyst", company: "Tata Consultancy Services (TCS)",
+    location: "India", period: "Jan 2021 – Jul 2023",
     achievements: [
-      "Oversaw daily operations across 4 departments at a high-volume facility.",
-      "Led staffing for 15–20 employees — hiring, onboarding, training, scheduling.",
-      "Tracked member usage data; produced reports informing staffing decisions.",
-      "On-site lead during emergency and safety situations.",
-    ], tools: ["Excel", "Scheduling systems", "MS 365"] },
-  { role: "Customer Service Representative", company: "Ashland University Recreational Services",
-    location: "Ashland, OH", period: "May 2024 – Jan 2025",
-    achievements: [
-      "Managed customer relations and facility tours — drove a 45% increase in membership.",
-      "Analyzed membership trends in Excel to enhance engagement and retention.",
-    ], tools: ["Excel"] },
-  { role: "MIS — Human Resources", company: "Aashman Foundation", location: "India", period: "Aug 2021 – May 2022",
-    achievements: [
-      "Assessed employee satisfaction and recommended HR policy improvements.",
-      "Supported recruiting and onboarding — job postings, screening, paperwork.",
-    ], tools: ["MS 365", "Surveys"] },
-  { role: "Marketing Intern", company: "Vikas Steel Udyog", location: "Ambala, Haryana, India", period: "Aug 2021 – Oct 2021",
-    achievements: [
-      "Competitor analysis and market research → 15% increase in inquiries.",
-      "Analyzed sales/market data to optimize pricing and promotional strategy.",
-    ], tools: ["Excel", "Market research"] },
+      "Gathered and documented business requirements across manufacturing, supply chain, procurement, inventory and order management — BRDs, FRDs, user stories, business rules and acceptance criteria.",
+      "Mapped AS-IS and TO-BE processes across production planning, demand planning, procurement, replenishment and warehouse operations, and ran fit-gap analysis against SAP S/4HANA target processes.",
+      "Built reporting and data extracts in SQL, Excel, Power BI, Tableau, R and SAS Studio covering stock visibility, demand trends, order status, backorders and fulfillment performance.",
+      "Wrote and executed SIT, UAT, regression and smoke test scenarios in JIRA, triaging defects and data mismatches through to resolution.",
+      "Supported end-user training, go-live and hypercare on each rollout for global clients across onshore and offshore teams.",
+    ], tools: ["SAP S/4HANA", "SQL", "Power BI", "Tableau", "JIRA", "Excel", "R", "SAS Studio"] },
 ];
 
 export const education = [
-  { degree: "MBA — Management Science (STEM-Designated)", school: "Ashland University, Dauch College of Business", period: "2023 – 2025", detail: "GPA 3.77 / 4.0" },
-  { degree: "Bachelor of Business Administration", school: "Shri Atmanand Jain Institute of Management & Technology", period: "2019 – 2022", detail: "India" },
+  { degree: "Master's in Management Science (STEM-Designated)", school: "Ashland University, Dauch College of Business", period: "2023 – 2025", detail: "GPA 3.79 / 4.0" },
+  { degree: "Bachelor's Degree in Business Administration", school: "Shri Atmanand Jain Institute of Management & Technology", period: "2019 – 2022", detail: "India" },
 ];
 
 export const certifications = [
@@ -228,5 +243,42 @@ export const charts = {
     { month: "Q2", revenue: 138, cost: 90 },
     { month: "Q3", revenue: 155, cost: 96 },
     { month: "Q4", revenue: 180, cost: 102 },
+  ],
+
+  // Weee! — attainment actual vs plan, illustrative of the 18-month trend
+  weeeAttainment: [
+    { q: "Q3'24", actual: 98, plan: 98 },
+    { q: "Q4'24", actual: 101, plan: 100 },
+    { q: "Q1'25", actual: 105, plan: 102 },
+    { q: "Q2'25", actual: 109, plan: 105 },
+    { q: "Q3'25", actual: 113, plan: 108 },
+    { q: "Q4'25", actual: 111, plan: 111 },
+    { q: "Q1'26", actual: 107, plan: 114 },
+    { q: "Q2'26", actual: 103, plan: 117 },
+  ],
+
+  // Apple — Services as a share of total revenue
+  appleServices: [
+    { year: "'15", share: 8.5 }, { year: "'16", share: 10.7 }, { year: "'17", share: 12.5 },
+    { year: "'18", share: 14.1 }, { year: "'19", share: 17.8 }, { year: "'20", share: 19.6 },
+    { year: "'21", share: 18.7 }, { year: "'22", share: 19.8 }, { year: "'23", share: 22.2 },
+    { year: "'24", share: 24.6 }, { year: "'25", share: 26.3 },
+  ],
+
+  // E-commerce — revenue share by sales channel
+  ecomChannels: [
+    { channel: "Marketplace", value: 28 },
+    { channel: "Direct web", value: 23 },
+    { channel: "Mobile app", value: 18 },
+    { channel: "Retail ptnr", value: 13 },
+    { channel: "Social", value: 10 },
+    { channel: "Wholesale", value: 8 },
+  ],
+
+  // ACG — scenario sensitivity, indexed to base = 100
+  acgScenarios: [
+    { scenario: "Downside", ebitda: 62, fcf: 41 },
+    { scenario: "Base", ebitda: 100, fcf: 78 },
+    { scenario: "Upside", ebitda: 138, fcf: 121 },
   ],
 };

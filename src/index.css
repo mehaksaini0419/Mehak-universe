@@ -28,37 +28,77 @@ body {
 .font-display { font-family: 'Sora', sans-serif; }
 .font-mono { font-family: 'JetBrains Mono', monospace; }
 
-/* aurora behind everything */
+/* aurora behind everything — brightened + slow drift */
 .aurora {
   position: fixed; inset: 0; z-index: -3;
   background:
-    radial-gradient(1000px 700px at 50% 8%, rgba(168,85,247,.28), transparent 55%),
-    radial-gradient(800px 600px at 85% 30%, rgba(34,211,238,.20), transparent 55%),
-    radial-gradient(900px 700px at 15% 75%, rgba(52,211,153,.18), transparent 60%),
-    radial-gradient(700px 500px at 80% 95%, rgba(244,114,182,.15), transparent 55%),
-    linear-gradient(180deg, var(--ink), var(--ink2) 60%, #0b1030);
+    radial-gradient(1000px 700px at 50% 8%, rgba(168,85,247,.42), transparent 58%),
+    radial-gradient(800px 600px at 85% 30%, rgba(34,211,238,.32), transparent 58%),
+    radial-gradient(900px 700px at 15% 75%, rgba(52,211,153,.28), transparent 62%),
+    radial-gradient(700px 500px at 80% 95%, rgba(244,114,182,.24), transparent 58%),
+    radial-gradient(620px 460px at 8% 22%, rgba(245,196,81,.16), transparent 60%),
+    linear-gradient(180deg, #06031a, #101a4a 58%, #0d1338);
   animation: auroraShift 20s ease-in-out infinite alternate;
 }
 @keyframes auroraShift {
-  0% { filter: hue-rotate(0deg) saturate(1); }
-  100% { filter: hue-rotate(22deg) saturate(1.15); }
+  0%   { filter: hue-rotate(0deg) saturate(1.08) brightness(1); }
+  100% { filter: hue-rotate(24deg) saturate(1.3) brightness(1.12); }
+}
+
+/* slow-moving colour veil for extra life */
+.aurora::after {
+  content: ""; position: absolute; inset: -20%;
+  background:
+    radial-gradient(560px 420px at 30% 40%, rgba(96,165,250,.20), transparent 62%),
+    radial-gradient(520px 400px at 72% 62%, rgba(168,85,247,.18), transparent 62%);
+  animation: veil 26s ease-in-out infinite alternate;
+}
+@keyframes veil {
+  0%   { transform: translate3d(0,0,0) scale(1); }
+  100% { transform: translate3d(6%, -5%, 0) scale(1.14); }
 }
 
 /* starfield canvas — shines behind whole portfolio */
 #starfield { position: fixed; inset: 0; z-index: -2; }
 
 .glass {
-  background: rgba(15, 21, 54, 0.5);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(140, 170, 255, 0.16);
+  background: rgba(24, 33, 78, 0.52);
+  backdrop-filter: blur(16px) saturate(140%);
+  -webkit-backdrop-filter: blur(16px) saturate(140%);
+  border: 1px solid rgba(160, 190, 255, 0.24);
   border-radius: 20px;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.07);
 }
 .glass-strong {
-  background: rgba(11, 16, 48, 0.82);
-  backdrop-filter: blur(22px);
-  border: 1px solid rgba(140, 170, 255, 0.2);
+  background: rgba(16, 23, 62, 0.86);
+  backdrop-filter: blur(22px) saturate(140%);
+  border: 1px solid rgba(160, 190, 255, 0.28);
   border-radius: 22px;
+}
+
+/* hover glow — cards light up in their own accent colour */
+.card-glow {
+  transition: box-shadow .45s cubic-bezier(.16,1,.3,1), border-color .45s, background .45s;
+}
+.card-glow:hover {
+  border-color: color-mix(in srgb, var(--glow, #22d3ee) 55%, transparent);
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--glow, #22d3ee) 30%, transparent),
+    0 18px 55px -18px color-mix(in srgb, var(--glow, #22d3ee) 70%, transparent),
+    inset 0 1px 0 rgba(255,255,255,.1);
+  background: rgba(30, 41, 92, 0.6);
+}
+
+/* flagship card — animated gradient ring */
+.featured-ring { position: relative; }
+.featured-ring::before {
+  content: ""; position: absolute; inset: -1px; border-radius: 21px; padding: 1.5px;
+  background: linear-gradient(115deg, #f5c451, #fb923c 30%, #a855f7 62%, #22d3ee);
+  background-size: 260% 100%;
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor; mask-composite: exclude;
+  animation: shimmer 8s linear infinite;
+  pointer-events: none;
 }
 
 .glow-text { text-shadow: 0 0 22px rgba(34,211,238,.45), 0 0 50px rgba(168,85,247,.3); }
@@ -94,3 +134,20 @@ body {
 }
 .no-scrollbar::-webkit-scrollbar { display: none; }
 @keyframes spinwheel { to { transform: rotate(360deg); } }
+
+/* brighter glow for headings sitting on the lifted aurora */
+.glow-text-strong {
+  text-shadow: 0 0 26px rgba(34,211,238,.6), 0 0 60px rgba(168,85,247,.4), 0 0 90px rgba(245,196,81,.2);
+}
+
+/* recharts legend/axis legibility on the brighter canvas */
+.recharts-legend-item-text { color: #cbd8ff !important; }
+.recharts-cartesian-axis-tick text { fill: #a8c4ff; }
+
+/* respect reduced motion across every animated utility */
+@media (prefers-reduced-motion: reduce) {
+  .aurora, .aurora::after, .shimmer, .rainbow-bar, .float, .featured-ring::before {
+    animation: none !important;
+  }
+  html { scroll-behavior: auto; }
+}

@@ -171,7 +171,7 @@ export function Recruiter() {
           <div className="inline-flex items-center gap-2 glass px-4 py-1.5 mb-5 text-xs font-mono text-cyan-200"><Sparkles size={14} /> Open to full-time analyst roles</div>
           <h3 className="font-display text-2xl md:text-3xl font-bold mb-3">Ready when you are.</h3>
           <p className="text-slate-300 max-w-xl mx-auto mb-2">{profile.location}</p>
-          <p className="font-mono text-xs text-emerald-400/80 mb-7">● {profile.workAuth}</p>
+          {profile.workAuth && (<p className="font-mono text-xs text-emerald-400/80 mb-7">● {profile.workAuth}</p>)}
           <div className="flex flex-wrap gap-3 justify-center">
             <a href="/Mehak%20Saini_Resume.pdf" target="_blank" rel="noopener noreferrer" download className="flex items-center gap-2 px-6 py-3 rounded-full font-medium text-slate-900 hover:scale-105 transition" style={{ background: "linear-gradient(90deg,#22d3ee,#34d399)" }}><Download size={18} /> Download Resume</a>
             <a href={profile.linkedin} target="_blank" rel="noreferrer" className="flex items-center gap-2 px-6 py-3 rounded-full font-medium glass hover:scale-105 transition"><Linkedin size={18} /> LinkedIn</a>

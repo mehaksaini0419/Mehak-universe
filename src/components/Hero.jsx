@@ -66,8 +66,10 @@ export default function Hero() {
         </button>
       </motion.div>
 
-      <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.9 }}
-        className="mt-6 font-mono text-xs text-emerald-400/80">● {profile.workAuth}</motion.p>
+      {profile.workAuth && (
+        <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.9 }}
+          className="mt-6 font-mono text-xs text-emerald-400/80">● {profile.workAuth}</motion.p>
+      )}
 
       <motion.a href="#career"
         className="absolute bottom-6 left-1/2 -translate-x-1/2 text-slate-400 flex flex-col items-center gap-1"

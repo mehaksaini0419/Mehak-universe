@@ -9,7 +9,7 @@ export const profile = {
   tagline: "Where business strategy meets analytics, AI, and operations excellence.",
   blurb:
     "Master's in Management Science (STEM) turning messy operational data into decisions. I work across analytics, operations, finance, HR, marketing, sales, and supply chain — owning the full stack from SQL query to executive deck.",
-  email: "msaini0419@outlook.com",
+  email: "mehaksaini347@gmail.com",
   phone: "(419) 565-9221",
   linkedin: "https://www.linkedin.com/in/mehaksaini04",
   github: "https://github.com/mehaksaini0419",
